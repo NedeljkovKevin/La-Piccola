@@ -130,7 +130,7 @@
             </div>
 
             <h1 class="text-4xl sm:text-6xl md:text-7xl font-serif font-bold mb-3 tracking-wide text-shadow-lg">Pizzeria La Piccola</h1>
-            <p class="text-base sm:text-xl md:text-2xl font-light mb-8 text-amber-50/90 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-base sm:xl md:text-2xl font-light mb-8 text-amber-50/90 max-w-2xl mx-auto leading-relaxed">
                 Authentische italienische Steinofen-Spezialitäten, frische Pasta & Fisch in gemütlicher Atmosphäre.
             </p>
             
@@ -310,6 +310,7 @@
         </div>
     </div>
 
+    <!-- Formspree Tischreservierungs-Modal -->
     <div id="reservation-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
         <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh] border border-pizza-gold/30">
             <div class="bg-pizza-burgundy text-white px-6 py-5 flex justify-between items-center">
@@ -324,55 +325,78 @@
             <div class="p-6 overflow-y-auto bg-white">
                 <form id="reservation-form" onsubmit="submitReservation(event)" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
-                        <input type="text" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm" placeholder="z.B. Mario Rossi">
+                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Ihr Name *</label>
+                        <input type="text" name="name" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm" placeholder="z. B. Max Mustermann">
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Datum *</label>
-                            <input type="date" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm">
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Telefonnummer *</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm" placeholder="z. B. 0170 1234567">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Uhrzeit *</label>
-                            <input type="time" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm">
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">E-Mail-Adresse</label>
+                            <input type="email" name="email" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm" placeholder="fuer.bestaetigung@mail.de">
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Personen</label>
-                            <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm">
-                                <option>1 Person</option>
-                                <option selected>2 Personen</option>
-                                <option>3 Personen</option>
-                                <option>4 Personen</option>
-                                <option>5 Personen</option>
-                                <option>6+ Personen</option>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Datum *</label>
+                            <input type="date" name="date" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Uhrzeit *</label>
+                            <select name="time" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm bg-white">
+                                <option value="">Wählen...</option>
+                                <optgroup label="Mittags (11:00 - 14:00)">
+                                    <option value="11:30">11:30 Uhr</option>
+                                    <option value="12:00">12:00 Uhr</option>
+                                    <option value="12:30">12:30 Uhr</option>
+                                    <option value="13:00">13:00 Uhr</option>
+                                </optgroup>
+                                <optgroup label="Abends (17:00 - 22:00)">
+                                    <option value="17:30">17:30 Uhr</option>
+                                    <option value="18:00">18:00 Uhr</option>
+                                    <option value="18:30">18:30 Uhr</option>
+                                    <option value="19:00">19:00 Uhr</option>
+                                    <option value="19:30">19:30 Uhr</option>
+                                    <option value="20:00">20:00 Uhr</option>
+                                    <option value="20:30">20:30 Uhr</option>
+                                </optgroup>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Telefonnummer *</label>
-                            <input type="tel" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm" placeholder="Für Rückfragen">
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Personen *</label>
+                            <select name="guests" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm bg-white">
+                                <option value="1 Person">1 Person</option>
+                                <option value="2 Personen" selected>2 Personen</option>
+                                <option value="3 Personen">3 Personen</option>
+                                <option value="4 Personen">4 Personen</option>
+                                <option value="5 Personen">5 Personen</option>
+                                <option value="6 Personen">6 Personen</option>
+                                <option value="7+ Personen">7+ Personen</option>
+                            </select>
                         </div>
                     </div>
+
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Anmerkungen & Wünsche</label>
-                        <textarea rows="3" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm resize-none" placeholder="z.B. Allergien, Hochstuhl benötigt..."></textarea>
+                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Anmerkungen & Wünsche</label>
+                        <textarea name="notes" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-sm resize-none" placeholder="z.B. Allergien, Hochstuhl benötigt..."></textarea>
                     </div>
+
+                    <!-- Status-Meldungen -->
+                    <div id="form-status" class="hidden p-3 rounded-lg text-sm text-center"></div>
+
                     <div class="pt-4 border-t border-gray-100 flex justify-end gap-3">
                         <button type="button" onclick="closeModal()" class="px-5 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors text-sm">Abbrechen</button>
-                        <button type="submit" class="bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white px-6 py-2.5 rounded-lg font-medium shadow-md transition-colors text-sm flex items-center gap-2">
-                            <i class="far fa-paper-plane"></i> Reservierung anfragen
+                        <button type="submit" id="submit-res-btn" class="bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white px-6 py-2.5 rounded-lg font-medium shadow-md transition-colors text-sm flex items-center gap-2">
+                            <i class="far fa-paper-plane"></i> <span>Reservierung anfragen</span>
                         </button>
                     </div>
+
+                    <p class="text-[11px] text-center text-gray-400 mt-2">Hinweis: Dienstag Ruhetag. Nur Barzahlung vor Ort möglich.</p>
                 </form>
-                <div id="reservation-success" class="hidden text-center py-8">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-check text-2xl text-pizza-green"></i>
-                    </div>
-                    <h4 class="text-2xl font-serif font-bold text-gray-900 mb-2">Vielen Dank!</h4>
-                    <p class="text-gray-600 text-sm max-w-xs mx-auto">Ihre Reservierungsanfrage wurde gesendet. Wir freuen uns auf Ihren Besuch!</p>
-                    <button onclick="closeModal()" class="mt-6 bg-pizza-burgundy text-white px-6 py-2.5 rounded-lg font-medium text-sm">Schließen</button>
-                </div>
             </div>
         </div>
     </div>
@@ -713,6 +737,12 @@
         let cart = [];
         let currentFilter = 'all';
 
+        // ==========================================
+        // FORMSPREE KONFIGURATION
+        // Trage hier deine ID ein (z. B. xpzgkowa)
+        // ==========================================
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/DEINE_FORMSPREE_ID';
+
         function getImgFor(id, type) {
             let num = parseInt(id.replace(/\D/g, ''));
             if (isNaN(num)) {
@@ -974,10 +1004,63 @@
             document.body.style.overflow = '';
         }
 
-        function submitReservation(e) {
+        // Formspree AJAX Reservation Submission
+        async function submitReservation(e) {
             e.preventDefault();
-            document.getElementById('reservation-form').style.display = 'none';
-            document.getElementById('reservation-success').classList.remove('hidden');
+            const form = document.getElementById('reservation-form');
+            const submitBtn = document.getElementById('submit-res-btn');
+            const statusDiv = document.getElementById('form-status');
+            const originalBtnContent = submitBtn.innerHTML;
+
+            // Loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Wird übermittelt...</span>
+            `;
+            statusDiv.className = 'hidden p-3 rounded-lg text-sm text-center';
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    statusDiv.className = 'block p-4 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-medium text-center';
+                    statusDiv.innerHTML = `
+                        <div class="flex items-center justify-center gap-2 mb-1">
+                            <i class="fas fa-check-circle text-emerald-600 text-lg"></i>
+                            <strong>Vielen Dank! Ihre Anfrage ist eingegangen.</strong>
+                        </div>
+                        <p class="text-xs text-emerald-700">Wir prüfen die Verfügbarkeit und melden uns bei Rückfragen telefonisch bei Ihnen.</p>
+                    `;
+                    form.reset();
+                    submitBtn.style.display = 'none';
+
+                    setTimeout(() => {
+                        closeModal();
+                        submitBtn.style.display = 'flex';
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnContent;
+                        statusDiv.className = 'hidden';
+                    }, 4000);
+                } else {
+                    throw new Error('Formspree Fehler');
+                }
+            } catch (error) {
+                statusDiv.className = 'block p-3 rounded-xl bg-red-50 text-red-800 border border-red-200 text-xs text-center';
+                statusDiv.innerHTML = `
+                    <strong>Übertragung fehlgeschlagen.</strong> Bitte rufen Sie uns direkt an unter: <a href="tel:091421568" class="underline font-bold">09142 / 1568</a>
+                `;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
