@@ -322,33 +322,36 @@
             </div>
             
             <!-- Modal Body (Scrollable, takes remaining space) -->
-            <div class="p-5 sm:p-6 pt-6 sm:pt-8 overflow-y-auto bg-white flex-1 overscroll-contain pb-10">
+            <div class="px-5 sm:px-6 overflow-y-auto bg-white flex-1 overscroll-contain pb-10">
+                <!-- iOS Fix: Physischer Platzhalter verhindert, dass padding-top beim Tastatur-Öffnen kollabiert -->
+                <div class="h-6 sm:h-8 w-full shrink-0"></div>
+                
                 <form id="reservation-form" onsubmit="submitReservation(event)" class="space-y-5">
-                    <div class="pt-2"> <!-- pt-2 sorgt hier für den extra Puffer gegen Scroll-Kollisionen bei iOS -->
+                    <div>
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Ihr Name *</label>
-                        <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="Vor- und Nachname">
+                        <input type="text" name="name" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="Vor- und Nachname">
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
                         <div class="min-w-0"> <!-- Grid Item constraint -->
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Telefonnummer *</label>
-                            <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="Für Rückfragen">
+                            <input type="tel" name="phone" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="Für Rückfragen">
                         </div>
                         <div class="min-w-0">
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">E-Mail (Optional)</label>
-                            <input type="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="mail@beispiel.de">
+                            <input type="email" name="email" class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="mail@beispiel.de">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-3">
                         <div class="min-w-0">
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Datum *</label>
-                            <!-- iOS Safari Date-Picker Width Bug-Fix: appearance-none, block, min-w-0 -->
-                            <input type="date" name="date" required class="w-full block min-w-0 appearance-none bg-white px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50">
+                            <!-- iOS Safari Date-Picker Bug-Fix: appearance-none, h-[50px], min-w-0 -->
+                            <input type="date" name="date" required class="w-full block min-w-0 appearance-none px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50">
                         </div>
                         <div class="min-w-0">
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Uhrzeit *</label>
-                            <select name="time" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 appearance-none">
+                            <select name="time" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 appearance-none">
                                 <option value="">Wählen...</option>
                                 <optgroup label="Mittags (11:00 - 14:00)">
                                     <option value="11:30">11:30 Uhr</option>
@@ -369,7 +372,7 @@
                         </div>
                         <div class="min-w-0">
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Personen *</label>
-                            <select name="guests" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 appearance-none">
+                            <select name="guests" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 appearance-none">
                                 <option value="1 Person">1 Person</option>
                                 <option value="2 Personen" selected>2 Personen</option>
                                 <option value="3 Personen">3 Personen</option>
@@ -892,3 +895,5 @@
     </script>
 </body>
 </html>
+
+
