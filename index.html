@@ -92,7 +92,6 @@
             appearance: none !important;
             width: 100% !important;
             min-width: 100% !important;
-            /* Flexbox erzwingt die vertikale Zentrierung in iOS */
             display: flex !important;
             align-items: center !important;
             margin: 0 !important;
@@ -230,7 +229,7 @@
                 <!-- Filter Pills -->
                 <div class="flex overflow-x-auto no-scrollbar items-center gap-2 sm:gap-2.5 text-[13px] font-medium pb-2 sm:pb-0 pt-1 px-1 sm:px-0 sm:flex-wrap">
                     <span class="text-gray-500 shrink-0">Filter:</span>
-                    <button onclick="toggleFilter('all')" id="filter-btn-all" class="filter-pill shrink-0 bg-pizza-burgundy text-white px-4 py-2 rounded-full transition-all shadow-sm">Alle</button>
+                    <button onclick="toggleFilter('all')" id="filter-btn-all" class="filter-pill shrink-0 bg-pizza-burgundy text-white px-4 py-2 rounded-full transition-all shadow-sm font-bold">Alle</button>
                     <button onclick="toggleFilter('bestseller')" id="filter-btn-bestseller" class="filter-pill shrink-0 bg-white border border-gray-200 text-gray-700 hover:bg-amber-50 px-3 py-2 rounded-full transition-all flex items-center gap-1.5"><i class="fas fa-star text-pizza-gold"></i> Bestseller</button>
                     <button onclick="toggleFilter('veg')" id="filter-btn-veg" class="filter-pill shrink-0 bg-white border border-gray-200 text-gray-700 hover:bg-green-50 px-3 py-2 rounded-full transition-all flex items-center gap-1.5"><i class="fas fa-leaf text-pizza-green"></i> Veg</button>
                     <button onclick="toggleFilter('spicy')" id="filter-btn-spicy" class="filter-pill shrink-0 bg-white border border-gray-200 text-gray-700 hover:bg-red-50 px-3 py-2 rounded-full transition-all flex items-center gap-1.5"><i class="fas fa-pepper-hot text-red-600"></i> Scharf</button>
@@ -238,14 +237,17 @@
                 </div>
             </div>
 
-            <!-- CRO Feature 2: Sticky Category Navigation Tabs -->
-            <div class="sticky top-16 md:top-20 z-40 bg-white/95 backdrop-blur-md py-3.5 px-4 sm:px-6 rounded-2xl shadow-sm border border-pizza-gold/20 mb-8 overflow-x-auto no-scrollbar flex items-center gap-2.5">
-                <button onclick="scrollToCat('Antipasti – Vorspeisen')" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Vorspeisen</button>
-                <button onclick="scrollToCat('Insalata - Salate')" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Salate</button>
-                <button onclick="scrollToCat('Pizza')" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-pizza-burgundy text-white hover:bg-pizza-burgundy-dark transition-colors shadow-sm">Pizzen 🍕</button>
-                <button onclick="scrollToCat('Spaghetti')" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Pasta</button>
-                <button onclick="scrollToCat('Specialita di Pesce - Fischspezialitäten')" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Fisch</button>
-                <button onclick="scrollToCat('Biere (0,33 l / 0,5 l)')" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Getränke</button>
+            <!-- CRO Feature 2: Sticky Category Navigation Tabs with Scroll Spy -->
+            <div class="sticky top-16 md:top-20 z-40 bg-white/95 backdrop-blur-md py-3.5 px-4 sm:px-6 rounded-2xl shadow-sm border border-pizza-gold/20 mb-8 overflow-x-auto no-scrollbar flex items-center gap-2.5" id="category-tabs-container">
+                <button onclick="scrollToCat('Antipasti - Vorspeisen')" data-target="cat-AntipastiVorspeisen" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-pizza-burgundy text-white shadow-sm transition-colors">Vorspeisen</button>
+                <button onclick="scrollToCat('Minestre - Suppen')" data-target="cat-MinestreSuppen" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Suppen</button>
+                <button onclick="scrollToCat('Insalata - Salate')" data-target="cat-InsalataSalate" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Salate</button>
+                <button onclick="scrollToCat('Spaghetti')" data-target="cat-Spaghetti" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Pasta</button>
+                <button onclick="scrollToCat('Risotti - Reisgerichte')" data-target="cat-RisottiReisgerichte" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Risotto</button>
+                <button onclick="scrollToCat('Lasagne')" data-target="cat-Lasagne" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Überbackenes</button>
+                <button onclick="scrollToCat('Pizza')" data-target="cat-Pizza" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Pizzen 🍕</button>
+                <button onclick="scrollToCat('Specialita di Pesce - Fischspezialitäten')" data-target="cat-SpecialitadiPesceFischspezialitten" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Fisch</button>
+                <button onclick="scrollToCat('Getränke - Alkoholfrei')" data-target="cat-GetrnkeAlkoholfrei" class="cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100">Getränke</button>
                 <div class="scroll-px-fix"></div>
             </div>
 
@@ -361,7 +363,9 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-3">
                         <div class="min-w-0">
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Datum *</label>
-                            <input type="date" name="date" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 box-border">
+                            <!-- iOS Safari Date-Picker Fixes: Removed display flex forced via custom CSS. Let the browser handle layout mostly naturally but enforce uniform padding/height. -->
+                            <!-- Added 'pr-2' specifically to give the native calendar icon breathing room on webkit browsers. -->
+                            <input type="date" name="date" required class="w-full pl-4 pr-2 sm:pr-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 box-border">
                         </div>
                         <div class="min-w-0">
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Uhrzeit *</label>
@@ -647,13 +651,13 @@
             beer: ["photo-1536935338788-846bb9981813", "photo-1600565152246-ce33a01a34b2", "photo-1614316938952-e9e995587785"]
         };
 
-        const bestSellers = ["1", "18", "22", "27", "42", "63", "94", "110", "112", "120", "136", "145", "148"];
-        const vegItems = ["10", "11", "12", "13", "14", "16", "20", "21", "23", "25", "36", "38", "50", "75", "105", "106", "107", "109", "110", "114", "117", "134", "137"];
+        const bestSellers = ["1", "14", "18", "24", "42", "63", "94", "110", "112", "114", "120", "136", "148"];
+        const vegItems = ["5", "6", "7", "8", "10", "11", "12", "13", "14", "16", "20", "21", "23", "25", "36", "38", "50", "56", "57", "58", "61", "68", "72", "75", "78", "80", "82", "87", "95", "97", "102", "105", "106", "107", "109", "110", "114", "115", "116", "117", "134", "137"];
         const spicyItems = ["35", "44", "45", "51", "135", "139"];
 
         const menuData = {
-            "Antipasti – Vorspeisen": {
-                desc: "mit Pizzabrot",
+            "Antipasti - Vorspeisen": {
+                desc: "Mit Pizzabrot",
                 items: [
                     ["1", "Antipasto - La-Piccola", "Mit Parmaschinken, Mozzarella, Tomaten, Oliven und Artischocken", "15,50", "antipasti"],
                     ["2", "Anitpasto - Allo-Scoglio", "Mit Parmaschinken, Meeresfrüchtesalat, Rucola und Parmesan", "17,50", "antipasti"],
@@ -661,13 +665,29 @@
                     ["4", "Cocktail - Gamberetti", "Krabbencocktail", "16,00", "antipasti"]
                 ]
             },
+            "Minestre - Suppen": {
+                desc: "",
+                items: [
+                    ["5", "Zuppa di Pomodoro", "Tomatensuppe", "6,00", "soup"],
+                    ["6", "Zuppa di Broccoli", "Broccolisuppe", "6,00", "soup"],
+                    ["7", "Zuppa di Porcini", "Steinpilzsuppe", "7,50", "soup"],
+                    ["8", "Zuppa ai Funghi Misti", "Gemischte Pilze", "7,50", "soup"],
+                    ["9", "Tortellini in Brodo", "Tortellini in Brühe", "6,50", "soup"],
+                    ["10", "Minestrone di Verdure", "Gemüsesuppe", "7,00", "soup"]
+                ]
+            },
             "Insalata - Salate": {
-                desc: "Kleine Portionen kosten € 1,50 weniger. Mit Essig und Öl",
+                desc: "Kleine Portionen kosten € 1,50 weniger. Mit Essig und Öl (Joghurt-Dressing + € 1,50)",
                 items: [
                     ["11", "Insalata Verde", "Grüner Salat", "5,00", "salad"],
+                    ["12", "Insalata di Cetrioli", "Gurkensalat", "5,00", "salad"],
                     ["13", "Insalata di Pomodori", "Tomatensalat mit Zwiebeln", "6,50", "salad"],
                     ["14", "Insalata Mista", "Grüner Salat mit Tomaten, Gurken, Paprika und Karotten", "7,00", "salad"],
+                    ["15", "Insalata Contadina", "Mit Gurken, Tomaten, Zwiebeln, Thunfisch und Oliven", "8,00", "salad"],
+                    ["16", "Insalata di Rucola", "Mit Rucola, Tomaten, Zwiebeln und Parmesan", "8,00", "salad"],
+                    ["17", "Insalata Roma", "Großer gemischter Salat mit Käse, Vorderschinken, Eier, Mais, Paprika und Karotten", "9,00", "salad"],
                     ["18", "Insalata La Piccola", "Großer gem. Salat mit Käse, Vorderschinken, Zwiebeln, Thunfisch, Artischocken, Paprika, Karotten", "9,50", "salad"],
+                    ["19", "Insalata Ischia", "Großer gem. Salat mit Käse, Eier, Vorderschinken, Zwiebeln, Thunfisch, Oliven, Salami, Artischocken, Paprika und Karotten", "10,50", "salad"],
                     ["20", "Insalata Capri", "Mit Tomaten, Mozzarella und Oregano", "8,50", "salad"]
                 ]
             },
@@ -676,47 +696,273 @@
                 items: [
                     ["21", "Spaghetti al Pomodoro", "Mit Tomatensoße", "8,50", "pasta"],
                     ["22", "Spaghetti Bologna", "Mit Fleischsoße", "9,00", "pasta"],
+                    ["23", "Spaghetti Aglio e Olio", "Mit Knoblauch und Öl", "8,50", "pasta"],
                     ["24", "Spaghetti Carbonara", "Mit Speck, Eier und Sahne", "9,50", "pasta"],
+                    ["25", "Spaghetti Broccoli", "Mit Broccoli, Knoblauch und Tomatensoße", "9,00", "pasta"],
+                    ["26", "Spaghetti Contadina", "Mit Auberginen, Zucchini, Zwiebel, gemischten Pilzen und Tomatensoße", "11,00", "pasta"],
                     ["27", "Spaghetti La Piccola", "Mit Vorderschinken, Champignon, Erbsen, Hackfleischsoße und Sahne", "10,50", "pasta"],
-                    ["30", "Spaghetti Mare", "Mit Meeresfrüchten", "11,50", "pasta"]
+                    ["28", "Spaghetti Amatriciana", "Mit Speck und Zwiebeln", "9,00", "pasta"],
+                    ["29", "Spaghetti ai Funghi Misti", "Mit gemischten Pilzen", "11,00", "pasta"],
+                    ["30", "Spaghetti Mare", "Mit Meeresfrüchten", "11,50", "pasta"],
+                    ["31", "Spaghetti alle Vongole", "Mit Venusmuscheln in Tomaten-Weinsoße oder mit Öl und frischen Tomatenstückchen", "11,00", "pasta"],
+                    ["32", "Spaghetti al Salmone", "Mit Lachs, Tomatensoße und Sahne", "12,00", "pasta"],
+                    ["33", "Spaghetti ai Gamberetti", "Mit Shrimps und frischen Tomatenstückchen", "12,00", "pasta"],
+                    ["34", "Spaghetti Scampi", "Mit Scampi, Tomatensoße und Knoblauch", "13,50", "pasta"],
+                    ["35", "Spaghetti alla Puttanesca", "Mit Speck, Oliven, Kapern, Sardellen, Knoblauch und Tomatensoße", "10,50", "pasta"]
                 ]
             },
             "Rigatoni": {
                 desc: "Kleine Portionen kosten € 1,00 weniger.",
                 items: [
+                    ["36", "Rigatoni Broccoli", "Mit Broccoli, Knoblauch und Sahnesoße", "9,00", "pasta"],
+                    ["37", "Rigatoni Carbonara", "Mit Speck, Eier und Sahne", "9,50", "pasta"],
                     ["38", "Rigatoni 4 Formaggi", "Mit 4 verschiedenen Käsesorten", "9,50", "pasta"],
+                    ["39", "Rigatoni Ischia", "Mit Vorderschinken, Erbsen, Champignon und Sahnesoße", "10,00", "pasta"],
                     ["40", "Rigatoni La Piccola", "Mit Vorderschinken, Erbsen, Champignon, Hackfleischsoße und Sahne", "10,50", "pasta"],
+                    ["41", "Rigatoni Amatriciana", "Mit Speck, Zwiebeln und Tomatensoße", "9,00", "pasta"],
                     ["42", "Rigatoni al Forno", "Mit Vorderschinken, Hackfleischsoße, Sahne und Käse überbacken", "9,50", "pasta"],
-                    ["44", "Rigatoni Speciali", "Mit Speck, Kapern, Knoblauch in Tomatensoße (scharf)", "9,50", "pasta"]
+                    ["43", "Rigatoni Casa", "Mit Hackfleischsoße, Sahne und Käse", "9,50", "pasta"],
+                    ["44", "Rigatoni Speciali", "Mit Speck, Kapern, Knoblauch in Tomatensoße", "9,50", "pasta"],
+                    ["45", "Rigatoni Vulcano", "Mit Zwiebeln, Champignon, Oliven in Tomatensoße", "9,50", "pasta"],
+                    ["46", "Rigatoni Broccoli al Forno", "Mit Broccoli, Knoblauch, Sahne und Käse überbacken", "10,00", "pasta"],
+                    ["47", "Rigatoni al Forno con Panna Bianca", "Mit Vorderschinken, Erbsen, Champignon, Sahnesoße und Käse überbacken", "10,50", "pasta"],
+                    ["48", "Rigatoni al Forno Speciali", "Mit Vorderschinken, Erbsen, Hackfleischsoße, Sahne und Käse überbacken", "10,00", "pasta"],
+                    ["49", "Rigatoni + Tortellini al Forno Speciali", "Mit Vorderschinken, Champignon, Erbsen, Hackfleischsoße, Sahne und Käse überbacken", "11,50", "pasta"]
+                ]
+            },
+            "Penne": {
+                desc: "Kleine Portionen kosten € 1,00 weniger.",
+                items: [
+                    ["50", "Penne Vegetariane", "Mit Broccoli, Auberginen, Zucchini, Paprika, gemischten Pilzen, Knoblauch in Tomatensoße", "12,00", "pasta"],
+                    ["51", "Penne alla Zingara", "Mit Speck, Zwiebeln, Knoblauch in Tomatensoße", "9,50", "pasta"],
+                    ["52", "Penne Boscaiola", "Mit gemischten Pilzen in Tomatensoße", "10,50", "pasta"],
+                    ["53", "Penne allo Scoglio", "Mit gemischten Pilzen, Venusmuscheln, Krabben und frischen Tomatenstücken", "14,00", "pasta"],
+                    ["54", "Penne ai Gamberetti", "Mit Krabben in Tomaten-Wein-Soße", "12,00", "pasta"],
+                    ["55", "Penne Spinaci e Salmone", "Mit Lachs, Spinat, Tomatensoße und Sahne", "12,50", "pasta"],
+                    ["56", "Penne Spinaci Gorgonzola", "Mit Spinat und Gorgonzolasoße", "10,50", "pasta"],
+                    ["57", "Penne Saporita", "Mit Auberginen, Zucchini, Mozzarella, Knoblauch in Tomatensoße", "11,00", "pasta"]
+                ]
+            },
+            "Risotti - Reisgerichte": {
+                desc: "Kleine Portionen kosten € 1,00 weniger.",
+                items: [
+                    ["58", "Risotto ai Funghi Misti", "Mit gemischten Pilzen und Tomatensoße", "11,00", "risotto"],
+                    ["59", "Risotto Mare", "Mit Meeresfrüchten und Tomatensoße", "11,00", "risotto"],
+                    ["60", "Risotto allo Scoglio", "Mit gem. Pilzen, Krabben, Venusmuscheln, frischen Tomatenstücken und Knoblauch", "14,00", "risotto"],
+                    ["61", "Risotto ai Porcini", "Mit Steinpilzen, Sahne und Tomatensoße", "11,50", "risotto"],
+                    ["62", "Risotto Salmone e Gamberetti", "Mit Lachs, Krabben, Sahne und Tomatensoße", "12,50", "risotto"],
+                    ["63", "Risotto La Piccola", "Mit Vorderschinken, Erbsen, Champignons, Hackfleischsoße und Sahne", "11,00", "risotto"],
+                    ["64", "Risotto al Forno", "Mit Vorderschinken, Sahne, Hackfleischsoße und Käse überbacken", "10,00", "risotto"]
+                ]
+            },
+            "Tortellini": {
+                desc: "Kleine Portionen kosten € 1,00 weniger.",
+                items: [
+                    ["65", "Tortellini Bolognese", "Mit Fleischsoße", "9,50", "pasta"],
+                    ["66", "Tortellini alla Panna", "Mit Vorderschinken, Käse und Sahnesoße", "10,00", "pasta"],
+                    ["67", "Tortellini Ischia", "Mit Vorderschinken, Erbsen und Sahnesoße", "10,50", "pasta"],
+                    ["68", "Tortellini Gorgonzola", "Mit Gorgonzolasoße und Broccoli", "11,50", "pasta"],
+                    ["69", "Tortellini La Piccola", "Mit Vorderschinken, Erbsen, Champignons, Fleischsoße und Sahne", "11,50", "pasta"],
+                    ["70", "Tortellini alla Romana", "Mit Vorderschinken, Fleischsoße und Sahne", "11,00", "pasta"],
+                    ["71", "Tortellini Forno", "Mit Vorderschinken, Fleischsoße, Sahne und Käse überbacken", "10,50", "pasta"],
+                    ["72", "Tortellini Broccoli al Forno", "Mit Broccoli, Sahnesoße und Käse überbacken", "11,00", "pasta"],
+                    ["73", "Tortellini + Rigatoni Speciali", "Mit Vorderschinken, Erbsen, Champignons, Sahnesoße und Käse überbacken", "12,00", "pasta"]
+                ]
+            },
+            "Gnocchi": {
+                desc: "Kleine Portionen kosten € 1,00 weniger.",
+                items: [
+                    ["74", "Gnocchi Bolognese", "Mit Fleischsoße", "9,50", "pasta"],
+                    ["75", "Gnocchi al Pomodoro", "Mit Tomatensoße", "9,00", "pasta"],
+                    ["76", "Gnocchi La Piccola", "Mit Vorderschinken, Erbsen, Champignons, Fleischsoße und Sahne", "11,00", "pasta"],
+                    ["77", "Gnocchi Ischia", "Mit Vorderschinken, Erbsen und Sahnesoße", "10,00", "pasta"],
+                    ["78", "Gnocchi al Gorgonzola", "Mit Gorgonzolasoße", "11,50", "pasta"],
+                    ["79", "Gnocchi al Salmone", "Mit Lachs, Tomatensoße und Sahne", "12,50", "pasta"]
+                ]
+            },
+            "Tagliatelle": {
+                desc: "Kleine Portionen kosten € 1,00 weniger.",
+                items: [
+                    ["80", "Tagliatelle Vegetariane", "Mit Broccoli, Auberginen, Zucchini, Paprika, Pfifferlingen, Knoblauch und Tomatensoße", "12,00", "pasta"],
+                    ["81", "Tagliatelle Boscaiola", "Mit Vorderschinken, Broccoli, gemischten Pilzen und Sahnesoße", "11,50", "pasta"],
+                    ["82", "Tagliatelle Spinaci e Gorgonzola", "Mit Spinat und Gorgonzolasoße", "11,00", "pasta"],
+                    ["83", "Tagliatelle La Piccola", "Mit Vorderschinken, Erbsen, Champignons, Fleischsoße und Sahne", "11,50", "pasta"],
+                    ["84", "Tagliatelle San Daniele", "Mit Parmaschinken und Sahnesoße", "12,00", "pasta"],
+                    ["85", "Tagliatelle Salmone e Gamberetti", "Mit Lachs, Krabben, Sahne und Tomatensoße", "12,50", "pasta"],
+                    ["86", "Tagliatelle Ischia", "Mit gemischten Pilzen, Lachs und Sahnesoße", "13,00", "pasta"],
+                    ["87", "Tagliatelle ai Porcini", "Mit Steinpilzen und Sahnesoße", "12,00", "pasta"]
+                ]
+            },
+            "Paglia e Fieno": {
+                desc: "Heu und Stroh. Kleine Portionen kosten € 1,00 weniger.",
+                items: [
+                    ["88", "Paglia e Fieno Romana", "Mit Vorderschinken, Fleischsoße und Sahne", "11,00", "pasta"],
+                    ["89", "Paglia e Fieno La Piccola", "Mit Vorderschinken, Erbsen, Champignons, Fleischsoße und Sahne", "12,50", "pasta"],
+                    ["90", "Paglia e Fieno Positano", "Mit Lachs, Krabben, Zucchini, Sahne und Tomatensoße", "13,50", "pasta"],
+                    ["91", "Paglia e Fieno al Salmone", "Mit Lachs, Sahne und Tomatensoße", "12,50", "pasta"]
+                ]
+            },
+            "Tris di Pasta": {
+                desc: "Gemischte Nudelgerichte",
+                items: [
+                    ["92", "Tris al Forno", "Mit Rigatoni, Tortellini und Cannelloni mit Fleischsoße, Sahne und Käse überbacken", "11,50", "pasta"],
+                    ["93", "Tris di Pasta", "Mit Penne Spinaci e Salmone, Rigatoni Vulcano und Tagliatelle ai Funghi Misti", "18,50", "pasta"]
+                ]
+            },
+            "Lasagne": {
+                desc: "",
+                items: [
+                    ["94", "Lasagne", "Mit Fleischsoße, Sahne und Käse überbacken", "10,00", "pasta"],
+                    ["95", "Lasagne Bianche", "Mit Sahnesoße und Käse überbacken", "10,50", "pasta"],
+                    ["96", "Lasagne La Piccola", "Mit Vorderschinken, Erbsen, Eiern, Fleischsoße, Sahne und Käse überbacken", "11,00", "pasta"],
+                    ["97", "Lasagne Vegetariana", "Mit Spinat, Lachs, Tomatensoße, Sahne und Käse überbacken", "12,50", "pasta"]
+                ]
+            },
+            "Cannelloni": {
+                desc: "",
+                items: [
+                    ["98", "Cannelloni La Piccola", "Gerollte Nudeln mit Hackfleischfüllung, Vorderschinken, Erbsen, Eiern und Käse überbacken", "11,50", "pasta"],
+                    ["99", "Cannelloni Primavera", "Mit Spinat, Hackfleischfüllung in Fleischsoße, Sahne und Käse überbacken", "11,50", "pasta"],
+                    ["100", "Cannelloni della Casa", "Mit Hackfleischfüllung in Fleischsoße, Sahne und Käse überbacken", "10,00", "pasta"]
+                ]
+            },
+            "Panzerotti": {
+                desc: "mit Lasagneteig",
+                items: [
+                    ["101", "Panzerotti al Prosciutto", "Mit Vorderschinken, Mozzarella, Tomatensoße und Sahne überbacken", "10,50", "pasta"],
+                    ["102", "Panzerotti agli Spinaci", "Mit Spinat, Mozzarella, Tomatensoße und Sahne überbacken", "10,50", "pasta"],
+                    ["103", "Panzerotti Primavera", "Mit Hackfleisch, Erbsen, Eiern, Mozzarella, Tomatensoße und Sahne überbacken", "11,50", "pasta"],
+                    ["104", "Panzerotti San Daniele", "Mit Parmaschinken, Mozzarella, Tomatensoße und Sahne überbacken", "12,50", "pasta"]
                 ]
             },
             "Pizza": {
                 desc: "Normal ø 28 cm – Kleine Pizzen ø 22 cm kosten € 1,00 weniger.",
                 items: [
+                    ["105", "Pizzabrot oder Panini", "Der pure Teiggenuss", "4,50", "pizza"],
+                    ["106", "Knoblauch-Pizzabrot", "Knoblauch", "5,00", "pizza"],
+                    ["107", "Pizzabrot Rossa", "Mit Tomaten, Oregano und Knoblauch", "5,50", "pizza"],
+                    ["108", "Pizzabrot Bianca", "Mit Sardellen und Oregano", "6,50", "pizza"],
+                    ["109", "Pizzabrot Bruscetta", "Mit frischen Tomatenstückchen, Knoblauch und Oregano", "7,00", "pizza"],
                     ["110", "Pizza Margherita", "Mit Tomaten und Käse", "8,00", "pizza"],
+                    ["111", "Pizza Napoli", "Mit Tomaten, Käse und Sardellen", "9,00", "pizza"],
                     ["112", "Pizza Salami", "Mit Salami", "9,50", "pizza"],
                     ["113", "Pizza Prosciutto", "Mit Vorderschinken", "9,50", "pizza"],
                     ["114", "Pizza Funghi", "Mit Champignons", "9,50", "pizza"],
+                    ["115", "Pizza Regina", "Mit Mozzarella und frischen Tomaten", "10,00", "pizza"],
+                    ["116", "Pizza ai Funghi Misti", "Mit gemischten Pilzen", "11,00", "pizza"],
+                    ["117", "Pizza 4 Formaggi", "Mit 4 verschiedenen Käsesorten", "10,00", "pizza"],
+                    ["118", "Pizza Emilia", "Mit Hackfleischsoße und Mozarella", "10,00", "pizza"],
+                    ["119", "Pizza Verona", "Mit Salami, Zwiebeln, Kapern und Sardellen", "10,00", "pizza"],
                     ["120", "Pizza Tonno", "Mit Thunfisch und Zwiebeln", "10,00", "pizza"],
+                    ["121", "Pizza Taormina", "Mit Salami und Vorderschinken", "10,00", "pizza"],
+                    ["122", "Pizza Hawai", "Mit Vorderschinken und Ananas", "10,00", "pizza"],
+                    ["123", "Pizza 4 Stagioni", "Mit Vorderschinken, Salami, Champignons, Paprika und Peperoni", "10,50", "pizza"],
+                    ["124", "Pizza Hamburger", "Mit Hackfleisch und Zwiebeln", "10,00", "pizza"],
+                    ["125", "Pizza Romana", "Mit Vorderschinken und Champignons", "10,00", "pizza"],
+                    ["126", "Pizza Desidero", "Mit Vorderschinken, Oliven und Artischocken", "10,00", "pizza"],
+                    ["127", "Pizza Mediterranea", "Mit Vorderschinken, Salami und Champignons", "10,00", "pizza"],
+                    ["128", "Pizza O Sole Mio", "Mit Vorderschinken und frischen Eiern", "10,00", "pizza"],
+                    ["129", "Pizza Mista", "Mit Vorderschinken, Salami, Champignons, Peperoni und Paprika", "11,00", "pizza"],
+                    ["130", "Pizza Venezia", "Mit Vorderschinken, Kapern, Sardellen, Artischocken und Knoblauch", "10,50", "pizza"],
+                    ["131", "Pizza Genovese", "Mit Vorderschinken, Zwiebeln und Knoblauch", "10,00", "pizza"],
+                    ["132", "Pizza Pazza", "Mit Vorderschinken, Peperoni, Paprika, Oliven und Ei", "11,00", "pizza"],
+                    ["133", "Pizza Firenze", "Mit Vorderschinken, Salami, Champignons, Zwiebeln und Paprika", "11,00", "pizza"],
                     ["134", "Pizza Vegetariana", "Mit Champignons, Paprika, Peperoni, Zwiebeln, Artischocken, Broccoli und Oliven", "11,00", "pizza"],
+                    ["135", "Pizza Ischia", "Mit Vorderschinken, Champignons, Zwiebeln und Knoblauch", "10,50", "pizza"],
                     ["136", "Pizza La Piccola", "Mit Vorderschinken, Salami, Champignons, Peperoni, Paprika, Artischocken, Oliven und Ei", "12,00", "pizza"],
-                    ["139", "Pizza Diavolo", "Mit Vorderschinken, Salami, Zwiebeln, Knoblauch, Kapern (scharf)", "10,50", "pizza"]
+                    ["137", "Pizza Campagnola", "Mit Mozzarella, Rucola und frischen Tomatenstückchen", "11,00", "pizza"],
+                    ["138", "Pizza Adria", "Mit Salami, Sardellen, Kapern, Oliven und Knoblauch", "10,00", "pizza"],
+                    ["139", "Pizza Diavolo", "Mit Vorderschinken, Salami, Zwiebeln, Knoblauch, Kapern", "10,50", "pizza"],
+                    ["140", "Pizza Calzone", "Gefüllte Pizza mit Salami, Vorderschinken, Champignons, Peperoni und Paprika", "11,00", "pizza"],
+                    ["141", "Pizza Marinara", "Mit Meeresfrüchten", "11,50", "pizza"],
+                    ["142", "Pizza Norvegese", "Mit Lachs, Spinat und Shrimps", "13,00", "pizza"],
+                    ["143", "Pizza Scoglio", "Mit Thunfisch, Meeresfrüchten, Scampi und Knoblauch", "12,50", "pizza"],
+                    ["144", "Pizza Gamberetti", "Mit Shrimps", "12,00", "pizza"],
+                    ["145", "Pizza Rucola", "Mit Mozzarella, Parmaschinken, Rucola, Parmesan und Knoblauch", "12,00", "pizza"],
+                    ["146", "Pizza Fattoria", "Mit Mozzarella, Parmaschinken, Pfifferlingen und Knoblauch", "12,00", "pizza"],
+                    ["147", "Pizza San Daniele", "Mit Mozzarella und Parmaschinken", "11,50", "pizza"]
                 ]
             },
             "Specialita di Pesce - Fischspezialitäten": {
                 desc: "Alle Gerichte mit Beilagen und Pizzabrot.",
                 items: [
                     ["148", "Calamari Fritti", "Tintenfisch paniert und gebacken", "17,50", "fish"],
+                    ["149", "Calamari alla Livornese", "Tintenfisch in Tomatensoße, Oliven, Oregano und Knoblauch", "18,50", "fish"],
+                    ["150", "Calamari e Seppie all Acqua Pazza", "Tintenfisch und Seppie, Weißweinsoße mit frischen Tomatenstückchen, Kapern, Knoblauch und Petersilie", "19,50", "fish"],
+                    ["151", "Seppie alla Livornese", "Seppie in Tomatensoße, Oliven, Oregano und Knoblauch", "18,50", "fish"],
+                    ["152", "Seppie al Vino", "Seppie in Weißweinsoße, Knoblauch und Petersilie", "18,50", "fish"],
+                    ["153", "Seppie Mediterraneo", "Seppie in Tomatensoße, Rotwein, Knoblauch und Petersilie", "18,50", "fish"],
+                    ["154", "Tris di Pesce", "Tintenfisch, Seppie, Scampi und Venusmuscheln in Weißweinsoße, Knoblauch und Petersilie", "20,50", "fish"],
                     ["155", "Pesce Spada alla Griglia", "Schwertfisch gegrillt", "21,00", "fish"],
-                    ["158", "Salmone alla Griglia", "Lachs gegrillt", "21,50", "fish"]
+                    ["156", "Pesce Spada alla Pizzaiola", "Schwertfisch in Tomatensoße mit Oliven, Kapern, Knoblauch und Oregano", "21,50", "fish"],
+                    ["157", "Pesce Spada all Acqua Pazza", "Schwertfisch in Weißweinsoße mit frischen Tomatenstückchen, Kapern, Knoblauch und Petersilie", "21,50", "fish"],
+                    ["158", "Salmone alla Griglia", "Lachs gegrillt", "21,50", "fish"],
+                    ["159", "Salmone alla Milanese", "Lachs paniert und gebacken in Zitronensoße, Knoblauch und Petersilie", "24,00", "fish"],
+                    ["160", "Salmone ai Gamberetti", "Lachs in Shrimpssoße und Sahne", "26,00", "fish"],
+                    ["161", "Sogliola alla Griglia", "Tropenzungenfilet gegrillt", "19,50", "fish"],
+                    ["162", "Sogliola al Limone", "Tropenzungenfilet in Zitronensoße mit Petersilie", "20,50", "fish"],
+                    ["163", "Sogliola alla Mugnaia", "Tropenzungenfilet in Weißweinsoße, Knoblauch und Petersilie", "20,50", "fish"],
+                    ["164", "Scampi alla Griglia", "Scampi gegrillt mit Knoblauch", "20,00", "fish"],
+                    ["165", "Scampi al Vino", "Scampi in Weißweinsoße mit Knoblauch", "22,00", "fish"],
+                    ["166", "Scampi ai Funghi Misti", "Scampi in Tomatensoße, Sahne mit gemischten Pilzen, Knoblauch und Petersilie", "23,00", "fish"],
+                    ["167", "Scampi all Acqua Pazza", "Scampi in Weißweinsoße mit frischen Tomatenstückchen, Kapern, Knoblauch und Petersilie", "22,50", "fish"],
+                    ["168", "Scampi alla Romana", "Scampi in Weißweinsoße mit Brandy, Parmaschinken, Knoblauch und Petersilie", "25,00", "fish"],
+                    ["169", "Scampi e Calamari alla Livornese", "Scampi und Tintenfisch in Tomatensoße mit Kapern, Oliven, Knoblauch und Oregano", "26,50", "fish"]
                 ]
             },
-            "Biere (0,33 l / 0,5 l)": {
+            "Getränke - Alkoholfrei": {
+                desc: "0,25 l / 0,4 l (Preise für 0,4 l, soweit nicht anders angegeben)",
+                items: [
+                    ["A1", "Mineralwasser", "0,4 l (0,25 l = € 2,00)", "2,70", "drink"],
+                    ["A2", "Coca Cola", "coffeinhaltig | 0,4 l (0,25 l = € 2,80)", "3,40", "drink"],
+                    ["A3", "Fanta", "0,4 l (0,25 l = € 2,80)", "3,40", "drink"],
+                    ["A4", "Sprite", "0,4 l (0,25 l = € 2,80)", "3,40", "drink"],
+                    ["A5", "Cola-Mix", "coffeinhaltig | 0,4 l (0,25 l = € 2,80)", "3,40", "drink"],
+                    ["A6", "Apfelsaft", "0,4 l (0,25 l = € 2,80)", "3,40", "drink"],
+                    ["A7", "Orangensaft", "0,4 l (0,25 l = € 2,80)", "3,40", "drink"],
+                    ["A8", "Apfelsaftschorle", "0,4 l", "3,30", "drink"],
+                    ["A9", "Orangensaftschorle", "0,4 l", "3,40", "drink"],
+                    ["A10", "San Pellegrino", "0,5 l", "4,00", "drink"],
+                    ["A11", "San Pellegrino", "1,0 l", "6,00", "drink"]
+                ]
+            },
+            "Getränke - Biere": {
+                desc: "0,33 l / 0,5 l",
+                items: [
+                    ["B1", "Helles Bier", "Vom Fass (0,5 l)", "3,40", "beer"],
+                    ["B2", "Pils", "Frisch gezapft (0,5 l)", "3,20", "beer"],
+                    ["B3", "Export Dunkel", "0,5 l", "3,50", "beer"],
+                    ["B4", "Alkoholfreies Bier", "0,5 l", "3,50", "beer"],
+                    ["B5", "Leichtes Hefeweizen", "0,5 l", "3,50", "beer"],
+                    ["B6", "Helles Hefeweizen", "0,5 l", "3,50", "beer"],
+                    ["B7", "Dunkles Hefeweizen", "0,5 l", "3,50", "beer"],
+                    ["B8", "Cola-Weizen", "coffeinhaltig (0,5 l)", "3,60", "beer"],
+                    ["B9", "Radler", "Erfrischendes Mixgetränk (0,5 l)", "3,50", "beer"]
+                ]
+            },
+            "Getränke - Weine & Sekt": {
+                desc: "Offene Weine (0,25 l), Schorlen und Sekt",
+                items: [
+                    ["W1", "Weinschorle", "0,4 l", "5,50", "drink"],
+                    ["W2", "Nero d'Avola", "Rotwein (0,25 l)", "6,00", "drink"],
+                    ["W3", "Lambrusco amabile", "Rotwein (0,25 l)", "5,00", "drink"],
+                    ["W4", "Chianti", "Rotwein (0,25 l)", "7,00", "drink"],
+                    ["W5", "Frascati Secco", "Weißwein (0,25 l)", "6,00", "drink"],
+                    ["W6", "Pinot Grigio", "Weißwein (0,25 l)", "6,00", "drink"],
+                    ["W7", "Prosecco", "Sekt (0,1 l)", "3,00", "drink"],
+                    ["W8", "Prosecco Flasche", "Sekt (0,7 l)", "13,00", "drink"]
+                ]
+            },
+            "Getränke - Warme Getränke & Spirituosen": {
                 desc: "",
                 items: [
-                    ["B1", "Helles Bier", "Vom Fass", "3,40", "beer"],
-                    ["B2", "Pils", "Frisch gezapft", "3,20", "beer"],
-                    ["B9", "Radler", "Erfrischendes Mixgetränk", "3,50", "beer"]
+                    ["K1", "Espresso", "", "2,60", "drink"],
+                    ["K2", "Cappuccino", "", "3,10", "drink"],
+                    ["K3", "Tasse Kaffee", "", "2,60", "drink"],
+                    ["K4", "Martini Bianco / Rosso", "15% Aperitif (5 cl)", "5,00", "drink"],
+                    ["K5", "Amaretto 20%", "2 cl Likör", "5,00", "drink"],
+                    ["K6", "Ramazzotti 30%", "2 cl", "5,50", "drink"],
+                    ["K7", "Grappa 40%", "2 cl", "5,50", "drink"]
                 ]
             }
         };
@@ -852,6 +1098,9 @@
                     noResults.classList.add('hidden');
                 }
 
+                // Initialisiere den Scroll Spy jedes Mal neu, wenn die Karte neu gezeichnet wurde
+                initScrollSpy();
+
             } catch (error) {
                 console.error("Error rendering menu:", error);
             }
@@ -954,6 +1203,52 @@
             renderMenu(document.getElementById('menu-search').value);
         }
 
+        // ==========================================
+        // SCROLL SPY LOGIK FÜR KATEGORIEN
+        // ==========================================
+        let categoryObserver;
+
+        function initScrollSpy() {
+            if (categoryObserver) {
+                categoryObserver.disconnect();
+            }
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-140px 0px -70% 0px',
+                threshold: 0
+            };
+
+            categoryObserver = new IntersectionObserver((entries) => {
+                let activeId = null;
+                // Da wir in beide Richtungen scrollen können, nehmen wir den zuletzt aktiven Entry
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        activeId = entry.target.id;
+                    }
+                });
+
+                if (activeId) {
+                    document.querySelectorAll('.cat-tab').forEach(btn => {
+                        if (btn.getAttribute('data-target') === activeId) {
+                            // Active Style
+                            btn.className = 'cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-pizza-burgundy text-white shadow-sm transition-colors';
+                            
+                            // Auto-Center the active button horizontally on mobile
+                            const container = btn.parentElement;
+                            const scrollLeft = btn.offsetLeft - (container.offsetWidth / 2) + (btn.offsetWidth / 2);
+                            container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                        } else {
+                            // Inactive Style
+                            btn.className = 'cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100';
+                        }
+                    });
+                }
+            }, observerOptions);
+
+            document.querySelectorAll('[id^="cat-"]').forEach(el => categoryObserver.observe(el));
+        }
+
         function scrollToCat(catName) {
             const elId = `cat-${catName.replace(/[^a-zA-Z0-9]/g, '')}`;
             const el = document.getElementById(elId);
@@ -965,6 +1260,15 @@
                 window.scrollTo({
                      top: offsetPosition,
                      behavior: "smooth"
+                });
+                
+                // Setze manuell direkt auf aktiv (für besseres Feedback beim Klick)
+                document.querySelectorAll('.cat-tab').forEach(btn => {
+                    if (btn.getAttribute('data-target') === elId) {
+                        btn.className = 'cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-pizza-burgundy text-white shadow-sm transition-colors';
+                    } else {
+                        btn.className = 'cat-tab shrink-0 text-sm font-semibold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-100';
+                    }
                 });
             }
         }
@@ -1107,5 +1411,3 @@
     </script>
 </body>
 </html>
-
-
