@@ -325,7 +325,6 @@
 
     <!-- Formspree Tischreservierungs-Modal -->
     <div id="reservation-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-        <!-- Komplett scrollbarer Block. Verhindert das Überschneiden in iOS Safari. -->
         <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
             
             <!-- Sticky Header -->
@@ -362,7 +361,6 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-3">
                         <div class="min-w-0">
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Datum *</label>
-                            <!-- iOS Safari Date-Picker Fixes: Display flex + align-items center forced via custom CSS -->
                             <input type="date" name="date" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 box-border">
                         </div>
                         <div class="min-w-0">
@@ -419,11 +417,172 @@
         </div>
     </div>
 
+    <!-- Impressum Modal -->
+    <div id="impressum-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
+            <div class="sticky top-0 z-20 bg-charcoal text-white px-5 sm:px-6 py-4 flex justify-between items-center shadow-md">
+                <h3 class="text-xl font-serif font-bold text-pizza-gold">Impressum</h3>
+                <button onclick="closeImpressum()" class="text-gray-400 hover:text-white p-2 shrink-0 bg-white/10 rounded-full transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            <div class="p-6 sm:p-8 bg-white text-gray-700 text-sm leading-relaxed space-y-6">
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-2">Angaben gemäß § 5 TMG</h4>
+                    <p>Antonio Giugliano<br>
+                    Oettinger Str. 8<br>
+                    91757 Treuchtlingen</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-2">Kontakt</h4>
+                    <p>Telefon: <a href="tel:091421568" class="text-pizza-burgundy hover:underline">09142 / 1568</a><br>
+                    E-Mail: <a href="mailto:info@pizzeria-la-piccola.de" class="text-pizza-burgundy hover:underline">info@pizzeria-la-piccola.de</a></p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-2">Bildquellen</h4>
+                    <p>Pixabay: Parmaschinken – Reinhard Thrainer, RitaE, Gnocchi – Michael Shivili, Calamari – Bart-ter-Haar, Free-Photos – vegetarische Pizza</p>
+                </div>
+                
+                <div class="border-t border-gray-100 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-4">Haftungsausschluss (Disclaimer)</h4>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Haftung für Inhalte</h5>
+                    <p class="mb-4">Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Haftung für Links</h5>
+                    <p class="mb-4">Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Urheberrecht</h5>
+                    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+                </div>
+                
+                <div class="pt-6 border-t border-gray-100 flex justify-center">
+                    <button onclick="closeImpressum()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 h-[50px] rounded-xl font-semibold transition-colors flex items-center justify-center">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datenschutz Modal -->
+    <div id="datenschutz-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
+            <div class="sticky top-0 z-20 bg-charcoal text-white px-5 sm:px-6 py-4 flex justify-between items-center shadow-md">
+                <h3 class="text-xl font-serif font-bold text-pizza-gold">Datenschutzerklärung</h3>
+                <button onclick="closeDatenschutz()" class="text-gray-400 hover:text-white p-2 shrink-0 bg-white/10 rounded-full transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            <div class="p-6 sm:p-8 bg-white text-gray-700 text-sm leading-relaxed space-y-6">
+                
+                <!-- Section 1 -->
+                <div>
+                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">1. Datenschutz auf einen Blick</h4>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Allgemeine Hinweise</h5>
+                    <p class="mb-4">Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.</p>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Datenerfassung auf dieser Website</h5>
+                    <p class="mb-2"><strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong><br>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.</p>
+                    <p class="mb-2"><strong>Wie erfassen wir Ihre Daten?</strong><br>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.</p>
+                    <p class="mb-2"><strong>Wofür nutzen wir Ihre Daten?</strong><br>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.</p>
+                    <p><strong>Welche Rechte haben Sie bezüglich Ihrer Daten?</strong><br>Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Details hierzu entnehmen Sie der Datenschutzerklärung unter „Recht auf Einschränkung der Verarbeitung“.</p>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="border-t border-gray-100 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">2. Hosting und Content Delivery Networks (CDN)</h4>
+                    <h5 class="font-bold text-gray-900 mb-1">Externes Hosting (Vercel / GitHub)</h5>
+                    <p class="mb-2">Diese Website wird bei externen Dienstleistern gehostet (Hoster), insbesondere über die Plattformen Vercel und GitHub Pages. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Webseitenzugriffe und sonstige Daten, die über eine Website generiert werden, handeln.</p>
+                    <p class="mb-2">Der Einsatz der Hoster erfolgt zum Zwecke der Vertragserfüllung gegenüber unseren potenziellen und bestehenden Kunden (Art. 6 Abs. 1 lit. b DSGVO) und im Interesse einer sicheren, schnellen und effizienten Bereitstellung unseres Online-Angebots durch einen professionellen Anbieter (Art. 6 Abs. 1 lit. f DSGVO).</p>
+                    <p>Unsere Hoster werden Ihre Daten nur insoweit verarbeiten, wie dies zur Erfüllung ihrer Leistungspflichten erforderlich ist und unsere Weisungen in Bezug auf diese Daten befolgen.</p>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="border-t border-gray-100 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">3. Allgemeine Hinweise und Pflichtinformationen</h4>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Datenschutz</h5>
+                    <p class="mb-4">Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung. Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht. Wir weisen darauf hin, dass die Datenübertragung im Internet (z. B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Hinweis zur verantwortlichen Stelle</h5>
+                    <p class="mb-4">Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br><br>Antonio Giugliano<br>Oettinger Str. 8<br>91757 Treuchtlingen<br>Tel: 09142 / 1568<br>E-Mail: <a href="mailto:info@pizzeria-la-piccola.de" class="text-pizza-burgundy hover:underline">info@pizzeria-la-piccola.de</a><br><br>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Widerruf Ihrer Einwilligung zur Datenverarbeitung</h5>
+                    <p class="mb-4">Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1 uppercase text-[11px] leading-tight">Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen Direktwerbung (Art. 21 DSGVO)</h5>
+                    <p class="mb-4 uppercase text-[11px] leading-tight text-gray-500">Wenn die Datenverarbeitung auf Grundlage von Art. 6 Abs. 1 lit. e oder f DSGVO erfolgt, haben Sie jederzeit das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, gegen die Verarbeitung Ihrer personenbezogenen Daten Widerspruch einzulegen; dies gilt auch für ein auf diese Bestimmungen gestütztes Profiling. Die jeweilige Rechtsgrundlage, auf denen eine Verarbeitung beruht, entnehmen Sie dieser Datenschutzerklärung. Wenn Sie Widerspruch einlegen, werden wir Ihre betroffenen personenbezogenen Daten nicht mehr verarbeiten, es sei denn, wir können zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die Ihre Interessen, Rechte und Freiheiten überwiegen oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen (Widerspruch nach Art. 21 Abs. 1 DSGVO).<br><br>Werden Ihre personenbezogenen Daten verarbeitet, um Direktwerbung zu betreiben, so haben Sie das Recht, jederzeit Widerspruch gegen die Verarbeitung Sie betreffender personenbezogener Daten zum Zwecke derartiger Werbung einzulegen; dies gilt auch für das Profiling, soweit es mit solcher Direktwerbung in Verbindung steht. Wenn Sie widersprechen, werden Ihre personenbezogenen Daten anschließend nicht mehr zum Zwecke der Direktwerbung verwendet (Widerspruch nach Art. 21 Abs. 2 DSGVO).</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Beschwerderecht bei der zuständigen Aufsichtsbehörde</h5>
+                    <p class="mb-4">Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Recht auf Datenübertragbarkeit</h5>
+                    <p class="mb-4">Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">SSL- bzw. TLS-Verschlüsselung</h5>
+                    <p class="mb-4">Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Auskunft, Löschung und Berichtigung</h5>
+                    <p class="mb-4">Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Recht auf Einschränkung der Verarbeitung</h5>
+                    <p class="mb-4">Sie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden. Das Recht auf Einschränkung der Verarbeitung besteht in folgenden Fällen:<br>
+                    - Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten, benötigen wir in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Prüfung haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.<br>
+                    - Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig geschah/geschieht, können Sie statt der Löschung die Einschränkung der Datenverarbeitung verlangen.<br>
+                    - Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie jedoch zur Ausübung, Verteidigung oder Geltendmachung von Rechtsansprüchen benötigen, haben Sie das Recht, statt der Löschung die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.<br>
+                    - Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben, muss eine Abwägung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen überwiegen, haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.<br>
+                    Wenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschränkt haben, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit Ihrer Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen oder juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses der Europäischen Union oder eines Mitgliedstaats verarbeitet werden.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Widerspruch gegen Werbe-E-Mails</h5>
+                    <p>Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.</p>
+                </div>
+
+                <!-- Section 4 -->
+                <div class="border-t border-gray-100 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">4. Datenerfassung auf dieser Website</h4>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Cookies</h5>
+                    <p class="mb-4">Unsere Internetseiten verwenden so genannte „Cookies“. Cookies sind kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Permanente Cookies bleiben auf Ihrem Endgerät gespeichert bis Sie diese selbst löschen oder eine automatische Lösung durch Ihren Webbrowser erfolgt.<br>
+                    Teilweise können auch Cookies von Drittunternehmen auf Ihrem Endgerät gespeichert werden, wenn Sie unsere Seite betreten (Third-Party-Cookies). Diese ermöglichen uns oder Ihnen die Nutzung bestimmter Dienstleistungen des Drittunternehmens.<br>
+                    Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs oder zur Bereitstellung bestimmter, von Ihnen erwünschter Funktionen erforderlich sind, werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Sofern eine entsprechende Einwilligung abgefragt wurde (z. B. eine Einwilligung zur Speicherung von Cookies), erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO; die Einwilligung ist jederzeit widerrufbar.<br>
+                    Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Server-Log-Dateien</h5>
+                    <p class="mb-4">Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind:<br>
+                    - Browsertyp und Browserversion<br>
+                    - verwendetes Betriebssystem<br>
+                    - Referrer URL<br>
+                    - Hostname des zugreifenden Rechners<br>
+                    - Uhrzeit der Serveranfrage<br>
+                    - IP-Adresse<br>
+                    Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung seiner Website – hierzu müssen die Server-Log-Files erfasst werden.</p>
+                    
+                    <h5 class="font-bold text-gray-900 mb-1">Kontakt- und Reservierungsformular (Formspree)</h5>
+                    <p class="mb-4">Wenn Sie uns per Reservierungsformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Formular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage bei uns gespeichert. Zur Abwicklung und technischen Übermittlung dieser Formularanfragen nutzen wir den Dienst <strong>Formspree</strong> (Formspree, Inc., USA). Wenn Sie unser Formular absenden, werden Ihre eingegebenen Daten an die Server von Formspree übertragen und dort verarbeitet. Weitere Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Formspree: <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" class="text-pizza-burgundy hover:underline">https://formspree.io/legal/privacy-policy/</a>.<br>
+                    Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+                    <h5 class="font-bold text-gray-900 mb-1">Anfrage per E-Mail oder Telefon</h5>
+                    <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) und/oder auf unseren berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO).</p>
+                </div>
+
+                <!-- Section 5 -->
+                <div class="border-t border-gray-100 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">5. Plugins und Tools</h4>
+                    <h5 class="font-bold text-gray-900 mb-1">Google Maps</h5>
+                    <p>Diese Seite nutzt über eine API den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited („Google“), Gordon House, Barrow Street, Dublin 4, Irland. Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung. Die Nutzung von Google Maps erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und an einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Mehr Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer" class="text-pizza-burgundy hover:underline">https://policies.google.com/privacy?hl=de</a></p>
+                </div>
+
+                <div class="pt-6 border-t border-gray-100 flex justify-center">
+                    <button onclick="closeDatenschutz()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 h-[50px] rounded-xl font-semibold transition-colors flex items-center justify-center">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-charcoal text-white pt-12 pb-24 md:pb-12 border-t-4 border-pizza-burgundy">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Abstand zum Strich exakt kontrolliert durch Entfernen von mb-8 aus dem Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-8">
                 <div>
                     <h4 class="text-2xl font-serif font-bold mb-4 text-pizza-gold">La Piccola</h4>
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">Ihre italienische Familie Giugliano in Treuchtlingen. Genießen Sie authentische Pizza und Pasta.</p>
@@ -452,11 +611,16 @@
                 </div>
             </div>
             
-            <!-- Die saubere Trennlinie! -->
             <hr class="border-gray-800 mt-6 mb-5">
             
-            <div class="text-center text-gray-500 text-xs flex justify-center">
+            <!-- Fußzeile mit Impressum & Datenschutz -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
                 <p>&copy; 2026 Pizzeria La Piccola. Alle Rechte vorbehalten.</p>
+                <div class="flex items-center gap-4 font-medium">
+                    <button onclick="openImpressum()" class="hover:text-gray-300 transition-colors">Impressum</button>
+                    <span class="text-gray-700">|</span>
+                    <button onclick="openDatenschutz()" class="hover:text-gray-300 transition-colors">Datenschutz</button>
+                </div>
             </div>
         </div>
     </footer>
@@ -819,32 +983,53 @@
         }
 
         // Modal Controllers
-        const modal = document.getElementById('reservation-modal');
+        const reservationModal = document.getElementById('reservation-modal');
         const orderModal = document.getElementById('order-modal');
+        const impressumModal = document.getElementById('impressum-modal');
+        const datenschutzModal = document.getElementById('datenschutz-modal');
 
         function openModal() {
-            modal.classList.add('active');
+            reservationModal.classList.add('active');
             document.body.style.overflow = 'hidden'; 
-            
-            const modalContent = modal.querySelector('.modal-content');
+            const modalContent = reservationModal.querySelector('.modal-content');
             if(modalContent) modalContent.scrollTop = 0;
         }
-
         function closeModal() {
-            modal.classList.remove('active');
+            reservationModal.classList.remove('active');
             document.body.style.overflow = '';
         }
 
         function openOrderModal() {
             orderModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
             const modalContent = orderModal.querySelector('.modal-content');
             if(modalContent) modalContent.scrollTop = 0;
         }
-
         function closeOrderModal() {
             orderModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Legal Modals
+        function openImpressum() {
+            impressumModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            const modalContent = impressumModal.querySelector('.modal-content');
+            if(modalContent) modalContent.scrollTop = 0;
+        }
+        function closeImpressum() {
+            impressumModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openDatenschutz() {
+            datenschutzModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            const modalContent = datenschutzModal.querySelector('.modal-content');
+            if(modalContent) modalContent.scrollTop = 0;
+        }
+        function closeDatenschutz() {
+            datenschutzModal.classList.remove('active');
             document.body.style.overflow = '';
         }
 
