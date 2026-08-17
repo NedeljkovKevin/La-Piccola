@@ -429,14 +429,14 @@
     <div id="toast-container" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none flex flex-col items-center gap-2"></div>
 
     <!-- Order Modal -->
-    <div id="order-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+    <div id="order-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
         <div class="modal-content bg-paper rounded-sm shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
             <div class="sticky top-0 z-20 bg-pizza-burgundy text-paper px-6 py-5 flex justify-between items-center shadow-md">
                 <div>
-                    <h3 class="text-xl font-serif font-bold text-pizza-gold-light">Ihr Bestellzettel</h3>
+                    <h3 id="order-modal-title" class="text-xl font-serif font-bold text-pizza-gold-light">Ihr Bestellzettel</h3>
                     <p class="text-[11px] font-sans tracking-wide mt-0.5">La Piccola: 09142 / 1568</p>
                 </div>
-                <button onclick="closeOrderModal()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
+                <button onclick="closeOrderModal()" aria-label="Schließen" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -465,14 +465,14 @@
         </div>
     </div>
 
-    <div id="reservation-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+    <div id="reservation-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="reservation-modal-title">
         <div class="modal-content bg-paper rounded-sm shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
             <div class="sticky top-0 z-20 bg-pizza-burgundy text-paper px-6 py-5 flex justify-between items-center shadow-md">
                 <div>
-                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-pizza-gold-light">Tisch reservieren</h3>
+                    <h3 id="reservation-modal-title" class="text-xl sm:text-2xl font-serif font-bold text-pizza-gold-light">Tisch reservieren</h3>
                     <p class="text-[11px] font-sans tracking-wide mt-0.5 uppercase">Pizzeria La Piccola</p>
                 </div>
-                <button onclick="closeModal()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
+                <button onclick="closeModal()" aria-label="Schließen" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -499,7 +499,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-3">
                         <div class="min-w-0">
                             <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Datum *</label>
-                            <input type="date" name="date" required class="classic-input w-full px-4 h-[46px] text-sm block appearance-none">
+                            <input type="date" name="date" id="reservation-date" required class="classic-input w-full px-4 h-[46px] text-sm block appearance-none">
                         </div>
                         <div class="min-w-0">
                             <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Uhrzeit *</label>
@@ -555,11 +555,11 @@
     </div>
 
     <!-- Impressum Modal -->
-    <div id="impressum-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+    <div id="impressum-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="impressum-modal-title">
         <div class="modal-content bg-paper rounded-sm shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
             <div class="sticky top-0 z-20 bg-pizza-burgundy text-white px-6 py-4 flex justify-between items-center shadow-md">
-                <h3 class="text-xl font-serif font-bold text-pizza-gold-light">Impressum</h3>
-                <button onclick="closeImpressum()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
+                <h3 id="impressum-modal-title" class="text-xl font-serif font-bold text-pizza-gold-light">Impressum</h3>
+                <button onclick="closeImpressum()" aria-label="Schließen" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
                     <i class="fas fa-times text-lg"></i>
                 </button>
             </div>
@@ -593,11 +593,11 @@
     </div>
 
     <!-- Datenschutz Modal -->
-    <div id="datenschutz-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+    <div id="datenschutz-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="datenschutz-modal-title">
         <div class="modal-content bg-white rounded-sm shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
             <div class="sticky top-0 z-20 bg-pizza-burgundy text-white px-5 sm:px-6 py-4 flex justify-between items-center shadow-md">
-                <h3 class="text-xl font-serif font-bold text-pizza-gold-light">Datenschutzerklärung</h3>
-                <button onclick="closeDatenschutz()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
+                <h3 id="datenschutz-modal-title" class="text-xl font-serif font-bold text-pizza-gold-light">Datenschutzerklärung</h3>
+                <button onclick="closeDatenschutz()" aria-label="Schließen" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
                     <i class="fas fa-times text-lg"></i>
                 </button>
             </div>
@@ -1328,15 +1328,78 @@
         const impressumModal = document.getElementById('impressum-modal');
         const datenschutzModal = document.getElementById('datenschutz-modal');
 
+        // ---- Barrierefreiheit: Fokus-Management & ESC-Handling für alle Modals ----
+        const allModals = [reservationModal, orderModal, impressumModal, datenschutzModal];
+        let lastFocusedElement = null;
+
+        function getFocusableElements(modal) {
+            return Array.from(modal.querySelectorAll(
+                'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+            )).filter(el => el.offsetParent !== null);
+        }
+
+        function trapFocus(e) {
+            const openModalEl = allModals.find(m => m.classList.contains('active'));
+            if (!openModalEl) return;
+
+            if (e.key === 'Escape') {
+                closeActiveModal(openModalEl);
+                return;
+            }
+
+            if (e.key !== 'Tab') return;
+
+            const focusable = getFocusableElements(openModalEl);
+            if (focusable.length === 0) return;
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+
+        function closeActiveModal(modal) {
+            if (modal === reservationModal) closeModal();
+            else if (modal === orderModal) closeOrderModal();
+            else if (modal === impressumModal) closeImpressum();
+            else if (modal === datenschutzModal) closeDatenschutz();
+        }
+
+        function onModalOpened(modal) {
+            lastFocusedElement = document.activeElement;
+            document.addEventListener('keydown', trapFocus);
+            const focusable = getFocusableElements(modal);
+            if (focusable.length > 0) {
+                focusable[0].focus();
+            }
+        }
+
+        function onModalClosed() {
+            document.removeEventListener('keydown', trapFocus);
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+                lastFocusedElement = null;
+            }
+        }
+        // ---- Ende Barrierefreiheit-Ergänzung ----
+
         function openModal() {
             reservationModal.classList.add('active');
             document.body.style.overflow = 'hidden'; 
             const modalContent = reservationModal.querySelector('.modal-content');
             if(modalContent) modalContent.scrollTop = 0;
+            onModalOpened(reservationModal);
         }
         function closeModal() {
             reservationModal.classList.remove('active');
             document.body.style.overflow = '';
+            onModalClosed();
         }
 
         function openOrderModal() {
@@ -1344,10 +1407,12 @@
             document.body.style.overflow = 'hidden';
             const modalContent = orderModal.querySelector('.modal-content');
             if(modalContent) modalContent.scrollTop = 0;
+            onModalOpened(orderModal);
         }
         function closeOrderModal() {
             orderModal.classList.remove('active');
             document.body.style.overflow = '';
+            onModalClosed();
         }
 
         function openImpressum() {
@@ -1355,10 +1420,12 @@
             document.body.style.overflow = 'hidden';
             const modalContent = impressumModal.querySelector('.modal-content');
             if(modalContent) modalContent.scrollTop = 0;
+            onModalOpened(impressumModal);
         }
         function closeImpressum() {
             impressumModal.classList.remove('active');
             document.body.style.overflow = '';
+            onModalClosed();
         }
 
         function openDatenschutz() {
@@ -1366,10 +1433,12 @@
             document.body.style.overflow = 'hidden';
             const modalContent = datenschutzModal.querySelector('.modal-content');
             if(modalContent) modalContent.scrollTop = 0;
+            onModalOpened(datenschutzModal);
         }
         function closeDatenschutz() {
             datenschutzModal.classList.remove('active');
             document.body.style.overflow = '';
+            onModalClosed();
         }
 
         async function submitReservation(e) {
@@ -1430,6 +1499,16 @@
         window.addEventListener('DOMContentLoaded', () => {
             checkOpeningStatus();
             renderMenu();
+
+            // Mindestdatum für Reservierung = heute, verhindert Vergangenheitsdaten
+            const dateInput = document.getElementById('reservation-date');
+            if (dateInput) {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                dateInput.setAttribute('min', `${yyyy}-${mm}-${dd}`);
+            }
         });
     </script>
 </body>
