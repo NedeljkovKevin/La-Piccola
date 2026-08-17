@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pizzeria La Piccola | Authentische Italienische Küche in Treuchtlingen</title>
+    <title>Pizzeria La Piccola | Traditionelle Italienische Küche in Treuchtlingen</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,34 +11,32 @@
     <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+    <!-- Google Fonts: Playfair Display + Lora + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'],
+                        body: ['Lora', 'serif'],
                     },
                     colors: {
-                        'pizza-burgundy': '#7A1C1C',
-                        'pizza-burgundy-dark': '#5B1313',
-                        'pizza-burgundy-light': '#9B2C2C',
-                        'pizza-green': '#2D5A27',
-                        'pizza-green-dark': '#1E3E1A',
-                        'pizza-gold': '#C8963E',
-                        'pizza-gold-light': '#E8C37D',
-                        'pizza-gold-dark': '#A2752B',
-                        'cream': '#FAF7F2',
-                        'cream-card': '#FFFFFF',
-                        'charcoal': '#1A1818',
-                        'charcoal-light': '#2A2626',
+                        'pizza-burgundy': '#8B1C1C', /* Klassisches Weinrot */
+                        'pizza-burgundy-dark': '#6B1010',
+                        'pizza-gold': '#B68D40', /* Gedämpftes Gold */
+                        'pizza-gold-light': '#D4AF37',
+                        'pizza-green': '#2E6F40',
+                        'ink': '#2C2621', /* Tinten-Schwarz */
+                        'paper': '#FDFBF7', /* Büttenpapier-Creme */
+                        'paper-dark': '#F4EFE6',
                     },
-                    backgroundImage: {
-                        'wood-pattern': "radial-gradient(circle at center, rgba(122,28,28,0.03) 0%, rgba(26,24,24,0) 70%)",
+                    boxShadow: {
+                        'classic': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
                     }
                 }
             }
@@ -46,10 +44,21 @@
     </script>
     
     <style>
+        /* Klassischer Büttenpapier-Hintergrund mit dezentem Rauschen */
         body { 
-            background-color: #FAF7F2; 
-            color: #1A1818;
-            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+            background-color: #FDFBF7; 
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            color: #2C2621;
+        }
+
+        /* Menü-Punkte im traditionellen Stil (Gepunktete Linie zwischen Text und Preis) */
+        .menu-dots {
+            flex-grow: 1;
+            border-bottom: 2px dotted #D1C7B7;
+            margin: 0 12px;
+            position: relative;
+            top: -6px;
+            opacity: 0.6;
         }
         
         .menu-image-container {
@@ -63,15 +72,15 @@
             opacity: 1;
             margin-top: 1rem;
         }
-        
+
         .rotate-icon {
             transition: transform 0.3s ease, color 0.3s ease;
         }
         .rotate-icon.open {
             transform: rotate(90deg);
-            color: #7A1C1C;
+            color: #8B1C1C;
         }
-        
+
         .modal-overlay {
             opacity: 0;
             visibility: hidden;
@@ -82,7 +91,7 @@
             visibility: visible;
         }
         .modal-content {
-            transform: scale(0.96) translateY(-15px);
+            transform: scale(0.98) translateY(-10px);
             transition: transform 0.3s ease;
         }
         .modal-overlay.active .modal-content {
@@ -91,8 +100,16 @@
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .scroll-px-fix::after {
+            content: '';
+            display: block;
+            flex-shrink: 0;
+            width: 1px;
+            height: 1px;
+        }
 
-        /* Perfect date input calendar icon alignment for desktop & iOS */
+        /* iOS Date-Picker Fix */
         input[type="date"] {
             -webkit-appearance: none !important;
             appearance: none !important;
@@ -103,41 +120,58 @@
             margin: 0 !important;
             padding-top: 0 !important;
             padding-bottom: 0 !important;
-            background-color: #F9FAFB;
-        }
-        
-        .gastro-card {
-            background: linear-gradient(135deg, #FFFFFF 0%, #FAF8F5 100%);
-            box-shadow: 0 4px 20px -2px rgba(122, 28, 28, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
         }
 
-        .gold-border-glow {
-            box-shadow: 0 0 15px rgba(200, 150, 62, 0.15);
+        /* Typografische Verzierungen */
+        .ornament-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 2rem 0;
+        }
+        .ornament-divider::before, .ornament-divider::after {
+            content: "";
+            height: 1px;
+            width: 60px;
+            background-color: #B68D40;
+            opacity: 0.5;
         }
 
-        /* Toast animation */
         @keyframes toastIn {
-            from { transform: translateY(100%) scale(0.9); opacity: 0; }
+            from { transform: translateY(100%) scale(0.95); opacity: 0; }
             to { transform: translateY(0) scale(1); opacity: 1; }
         }
         .toast-animate {
             animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
+
+        .classic-input {
+            background-color: transparent;
+            border: 1px solid #D1C7B7;
+            border-radius: 2px;
+            color: #2C2621;
+        }
+        .classic-input:focus {
+            border-color: #8B1C1C;
+            box-shadow: none;
+            outline: none;
+        }
     </style>
 </head>
-<body class="antialiased font-sans flex flex-col min-h-screen selection:bg-pizza-burgundy selection:text-white pb-24 md:pb-0">
+<body class="antialiased font-body flex flex-col min-h-screen selection:bg-pizza-burgundy selection:text-white pb-24 md:pb-0">
 
-    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-pizza-gold/20 shadow-sm transition-all duration-300">
-        <!-- Top Micro Bar for Gastro Vibe -->
-        <div class="bg-charcoal text-amber-100/90 text-[11px] py-1.5 px-4 hidden sm:block border-b border-pizza-gold/20">
+    <nav class="fixed w-full z-50 bg-paper/95 backdrop-blur-md border-b border-pizza-gold/30 shadow-sm transition-all duration-300">
+        <!-- Top Micro Bar -->
+        <div class="bg-ink text-paper text-[11px] py-2 px-4 hidden sm:block border-b border-pizza-gold/20 font-sans tracking-wide">
             <div class="max-w-6xl mx-auto flex justify-between items-center">
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-5">
                     <span><i class="fas fa-map-marker-alt text-pizza-gold mr-1.5"></i>Oettinger Straße 8, 91757 Treuchtlingen</span>
                     <span><i class="fas fa-coins text-pizza-gold mr-1.5"></i>Nur Barzahlung</span>
                 </div>
-                <div class="flex items-center gap-3 font-medium">
-                    <span id="live-status-pill" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> JETZT GEÖFFNET
+                <div class="flex items-center gap-3 font-medium uppercase">
+                    <span id="live-status-pill" class="inline-flex items-center gap-1.5 text-[10px] font-bold text-pizza-gold">
+                        Lade Status...
                     </span>
                 </div>
             </div>
@@ -145,137 +179,141 @@
 
         <!-- Main Nav Header -->
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 sm:h-20">
+            <div class="flex justify-between items-center h-16 sm:h-24">
                 <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                    <div class="w-10 h-10 rounded-full bg-pizza-burgundy flex items-center justify-center text-pizza-gold shadow-md border border-pizza-gold/30 group-hover:rotate-12 transition-transform">
-                        <i class="fas fa-pizza-slice text-lg"></i>
-                    </div>
-                    <div>
-                        <span class="font-serif text-2xl font-extrabold text-gray-900 tracking-tight block leading-none">La Piccola</span>
-                        <span class="text-[10px] uppercase tracking-[0.2em] text-pizza-burgundy font-bold block mt-0.5">Ristorante • Pizzeria</span>
-                    </div>
+                    <!-- Das Original-Logo des Kunden -->
+                    <img src="https://pizzeria-la-piccola.de/wp-content/uploads/2020/04/logo-piccola-pizzaria.png" alt="La Piccola Logo" class="h-10 sm:h-14 w-auto object-contain">
                 </div>
                 
-                <div class="hidden md:flex space-x-7 items-center">
-                    <a href="#story" class="text-gray-700 hover:text-pizza-burgundy font-semibold text-sm transition-colors">Über uns</a>
-                    <a href="#menu" class="text-gray-700 hover:text-pizza-burgundy font-semibold text-sm transition-colors">Speisekarte</a>
-                    <a href="#info" class="text-gray-700 hover:text-pizza-burgundy font-semibold text-sm transition-colors">Anfahrt & Zeiten</a>
-                    <a href="tel:091421568" class="text-pizza-burgundy font-bold hover:text-pizza-burgundy-dark text-sm transition-colors flex items-center gap-2 bg-amber-50/80 px-4 py-2 rounded-full border border-amber-200/80 shadow-sm">
+                <div class="hidden md:flex space-x-8 items-center font-serif text-sm">
+                    <a href="#story" class="text-ink hover:text-pizza-burgundy transition-colors">Über uns</a>
+                    <a href="#menu" class="text-ink hover:text-pizza-burgundy transition-colors">Speisekarte</a>
+                    <a href="#info" class="text-ink hover:text-pizza-burgundy transition-colors">Anfahrt & Zeiten</a>
+                    <div class="h-6 w-px bg-pizza-gold/30"></div>
+                    <a href="tel:091421568" class="text-pizza-burgundy font-bold hover:text-pizza-burgundy-dark transition-colors flex items-center gap-2">
                         <i class="fas fa-phone-alt text-pizza-gold"></i> 09142 / 1568
                     </a>
-                    <button onclick="openModal()" class="bg-gradient-to-r from-pizza-burgundy to-pizza-burgundy-dark hover:from-pizza-burgundy-dark hover:to-pizza-burgundy text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center gap-2 border border-pizza-gold/40">
-                        <i class="far fa-calendar-alt text-pizza-gold-light"></i> Tisch buchen
+                    <button onclick="openModal()" class="border border-pizza-burgundy text-pizza-burgundy hover:bg-pizza-burgundy hover:text-white px-5 py-2.5 rounded-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 text-[11px]">
+                        Tisch reservieren
                     </button>
                 </div>
 
                 <!-- Mobile Action Buttons -->
-                <div class="md:hidden flex items-center gap-2">
-                    <a href="tel:091421568" class="bg-amber-50 text-pizza-burgundy px-3.5 py-2 rounded-full shadow-sm border border-amber-200 text-xs font-bold flex items-center gap-1.5">
-                        <i class="fas fa-phone-alt text-pizza-gold"></i> Anrufen
+                <div class="md:hidden flex items-center gap-3">
+                    <a href="tel:091421568" class="text-pizza-burgundy font-bold text-sm">
+                        <i class="fas fa-phone-alt"></i>
                     </a>
-                    <button onclick="openModal()" class="bg-pizza-burgundy text-white px-3.5 py-2 rounded-full shadow-md text-xs font-bold flex items-center gap-1.5 border border-pizza-gold/30">
-                        <i class="far fa-calendar-alt text-pizza-gold-light"></i> Tisch
+                    <button onclick="openModal()" class="bg-pizza-burgundy text-white px-4 py-2 rounded-sm text-xs font-bold uppercase tracking-wider">
+                        Reservieren
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header id="hero-header" class="relative pt-28 pb-16 md:pt-44 md:pb-28 flex items-center justify-center min-h-[62vh] md:min-h-[72vh] bg-charcoal bg-cover bg-center transition-all duration-500 overflow-hidden" 
-            style="background-image: linear-gradient(to bottom, rgba(20, 16, 15, 0.75), rgba(20, 16, 15, 0.90)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1920&q=80');">
+    <header id="hero-header" class="relative pt-28 pb-20 md:pt-40 md:pb-32 flex items-center justify-center min-h-[70vh] bg-ink bg-cover bg-center transition-all duration-500 overflow-hidden" 
+            style="background-image: linear-gradient(to bottom, rgba(28, 22, 18, 0.82), rgba(28, 22, 18, 0.92)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzeN-VOx8ebz8XXj3U0oqxPoKQ71tn7AnHf4yV-y2IPmN9VVEPDyQMaA4&s=10');">
         
-        <div class="absolute inset-0 bg-wood-pattern pointer-events-none"></div>
+        <!-- Traditional Gold Border Framing -->
+        <div class="absolute inset-4 md:inset-8 border border-pizza-gold/25 pointer-events-none rounded-sm"></div>
+        <div class="absolute inset-6 md:inset-10 border border-pizza-gold/15 pointer-events-none rounded-sm"></div>
 
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto text-white">
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto text-paper">
             
-            <!-- Gastro Vibe Badge -->
-            <div class="inline-flex items-center gap-2.5 bg-black/60 backdrop-blur-md px-5 py-2 rounded-full border border-pizza-gold/40 mb-6 text-xs sm:text-sm text-amber-100 shadow-xl">
-                <span class="text-pizza-gold font-serif italic">Seit 1990</span>
-                <span class="text-pizza-gold/40">•</span>
-                <div class="flex text-amber-400 text-[10px] sm:text-xs gap-0.5">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <!-- Traditional Italian Crest & Original Logo Emblem -->
+            <div class="inline-flex flex-col items-center mb-6">
+                <!-- Original Logo in full color in Hero -->
+                <div class="bg-paper-dark/95 p-4 rounded-sm border-2 border-pizza-gold/40 shadow-2xl mb-4 backdrop-blur-sm">
+                    <img src="https://pizzeria-la-piccola.de/wp-content/uploads/2020/04/logo-piccola-pizzaria.png" alt="La Piccola Logo Original" class="h-16 sm:h-20 w-auto object-contain">
                 </div>
-                <span class="font-medium text-white">Traditionelle Pizza & Pasta in Treuchtlingen</span>
+                
+                <!-- Tricolore Italian Line -->
+                <div class="flex items-center justify-center gap-2 w-48 h-1 my-2">
+                    <div class="h-1 w-1/3 bg-[#009246] rounded-l-full"></div>
+                    <div class="h-1 w-1/3 bg-white"></div>
+                    <div class="h-1 w-1/3 bg-[#CE2B37] rounded-r-full"></div>
+                </div>
+
+                <div class="flex items-center gap-3 text-xs sm:text-sm text-pizza-gold font-serif italic tracking-widest uppercase mt-1">
+                    <span>❦ Seit 2006</span>
+                    <span class="text-pizza-gold/50">•</span>
+                    <span>Tradizione Italiana ❦</span>
+                </div>
             </div>
 
-            <h1 class="text-4xl sm:text-6xl md:text-7xl font-serif font-extrabold mb-4 tracking-tight text-shadow-xl leading-tight">
-                Authentisch.<br class="sm:hidden"><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-pizza-gold-light to-amber-200">Italienisch.</span> Genießen.
+            <!-- Traditional Italian Title -->
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-serif font-bold mb-4 tracking-tight text-paper leading-tight">
+                Benvenuti alla Pizzeria La Piccola
             </h1>
             
-            <p class="text-base sm:text-xl md:text-2xl font-light mb-10 text-amber-50/90 max-w-2xl mx-auto leading-relaxed">
-                Frische Zutaten, traditionelle Familienrezepte und die wohl herzlichste Atmosphäre der Altstadt.
+            <div class="w-24 h-0.5 bg-pizza-gold/60 mx-auto mb-6"></div>
+
+            <p class="text-base sm:text-xl font-serif italic mb-10 text-paper/90 max-w-2xl mx-auto leading-relaxed">
+                Echte italienische Gastfreundschaft, über 20 Jahre Tradition und original Familienrezepte der Familie Giugliano.
             </p>
             
-            <!-- Gastro CTAs -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md sm:max-w-xl mx-auto">
-                <a href="#menu" class="w-full sm:w-1/2 bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white px-7 py-4 rounded-2xl font-bold transition-all shadow-xl text-center flex items-center justify-center gap-2.5 border border-pizza-gold/40 group text-sm sm:text-base">
-                    <i class="fas fa-utensils text-pizza-gold group-hover:rotate-12 transition-transform"></i> Speisekarte entdecken
+            <!-- Traditional Italian CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md sm:max-w-xl mx-auto">
+                <a href="#menu" class="w-full sm:w-auto bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white px-8 py-4 rounded-sm font-serif font-bold uppercase tracking-widest transition-all text-center text-xs shadow-lg border border-pizza-gold/50 flex items-center justify-center gap-2">
+                    <i class="fas fa-book-open text-pizza-gold text-sm"></i> Speisekarte ansehen
                 </a>
-                <button onclick="openModal()" class="w-full sm:w-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-7 py-4 rounded-2xl font-bold transition-all shadow-xl border border-white/30 flex items-center justify-center gap-2.5 text-sm sm:text-base">
-                    <i class="far fa-calendar-check text-pizza-gold-light"></i> Tisch reservieren
+                <button onclick="openModal()" class="w-full sm:w-auto bg-ink/80 hover:bg-pizza-gold hover:text-ink border border-pizza-gold text-pizza-gold px-8 py-4 rounded-sm font-serif font-bold uppercase tracking-widest transition-all text-center text-xs shadow-lg flex items-center justify-center gap-2">
+                    <i class="far fa-calendar-alt text-sm"></i> Tisch reservieren
                 </button>
             </div>
 
-            <!-- Culinary USPs Badges -->
-            <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs sm:text-sm text-amber-100/80 max-w-3xl mx-auto pt-8 border-t border-pizza-gold/20">
-                <div class="flex items-center justify-center gap-2 bg-black/30 p-2.5 rounded-xl border border-white/5">
-                    <i class="fas fa-fire-alt text-pizza-gold text-base"></i>
-                    <span>Frisch gebacken</span>
-                </div>
-                <div class="flex items-center justify-center gap-2 bg-black/30 p-2.5 rounded-xl border border-white/5">
-                    <i class="fas fa-wheat-awn text-pizza-gold text-base"></i>
-                    <span>Beste Zutaten</span>
-                </div>
-                <div class="flex items-center justify-center gap-2 bg-black/30 p-2.5 rounded-xl border border-white/5">
-                    <i class="fas fa-heart text-pizza-gold text-base"></i>
+            <!-- Traditional Trattoria Badges -->
+            <div class="mt-12 pt-8 border-t border-pizza-gold/20 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-paper/70 font-serif uppercase tracking-wider">
+                <div class="flex items-center justify-center gap-2 p-2 border border-pizza-gold/15 bg-black/20 rounded-sm">
+                    <i class="fas fa-heart text-pizza-gold"></i>
                     <span>Familienbetrieb</span>
                 </div>
-                <div class="flex items-center justify-center gap-2 bg-black/30 p-2.5 rounded-xl border border-white/5">
-                    <i class="fas fa-bag-shopping text-pizza-gold text-base"></i>
-                    <span>Auch zum Mitnehmen</span>
+                <div class="flex items-center justify-center gap-2 p-2 border border-pizza-gold/15 bg-black/20 rounded-sm">
+                    <i class="fas fa-mortar-pestle text-pizza-gold"></i>
+                    <span>Frische Zutaten</span>
+                </div>
+                <div class="flex items-center justify-center gap-2 p-2 border border-pizza-gold/15 bg-black/20 rounded-sm">
+                    <i class="fas fa-coins text-pizza-gold"></i>
+                    <span>Nur Barzahlung</span>
                 </div>
             </div>
 
         </div>
     </header>
 
-    <section id="story" class="py-16 md:py-20 bg-amber-50/50 border-b border-pizza-gold/15">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <section id="story" class="py-20 md:py-28 bg-paper relative border-b border-pizza-gold/20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
                 
-                <div class="lg:col-span-5 space-y-5">
-                    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-pizza-burgundy bg-amber-100/80 px-3 py-1 rounded-md border border-amber-200">
-                        <i class="fas fa-utensils"></i> Benvenuti a La Piccola
+                <!-- Card with full color logo on top (Pizza icon completely removed) -->
+                <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                    <div class="relative w-full max-w-md aspect-square border-2 border-pizza-gold/20 p-2 rounded-sm bg-paper-dark shadow-sm">
+                        <div class="w-full h-full border border-pizza-gold/20 flex flex-col items-center justify-center p-8 text-center" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(182, 141, 64, 0.03) 10px, rgba(182, 141, 64, 0.03) 20px);">
+                            <!-- Richtige Logo oben in Originalfarbe -->
+                            <img src="https://pizzeria-la-piccola.de/wp-content/uploads/2020/04/logo-piccola-pizzaria.png" alt="Pizzeria La Piccola Logo" class="h-20 sm:h-24 w-auto object-contain mb-6">
+                            <h3 class="font-serif text-2xl text-ink font-bold mb-2">Familie Giugliano</h3>
+                            <p class="font-serif italic text-pizza-burgundy text-lg">Seit über 30 Jahren</p>
+                        </div>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl font-serif font-extrabold text-gray-900 leading-tight">
-                        Echte italienische Leidenschaft mitten in Treuchtlingen
+                </div>
+
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/2 space-y-6">
+                    <h4 class="text-pizza-gold font-bold uppercase tracking-widest text-xs">La Nostra Storia</h4>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-ink leading-tight">
+                        Echte italienische Leidenschaft.
                     </h2>
-                    <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-                        Seit vielen Jahren verwöhnen wir – die Familie Giugliano – unsere Gäste mit authentischen Rezepten aus unserer Heimat. Von knuspriger Pizza über frische Pasta bis hin zu feinen Fischspezialitäten verwenden wir nur sorgfältig ausgewählte Zutaten.
+                    <div class="w-16 h-0.5 bg-pizza-burgundy"></div>
+                    <p class="text-ink/80 leading-relaxed font-body">
+                        Seit vielen Jahren verwöhnen wir – die Familie Giugliano – unsere Gäste mit authentischen Rezepten aus unserer Heimat. Von knuspriger Pizza frisch aus dem Ofen über hausgemachte Pasta bis hin zu feinen Fischspezialitäten verwenden wir nur sorgfältig ausgewählte Zutaten.
                     </p>
-                    
-                    <div class="pt-2 grid grid-cols-2 gap-4">
-                        <div class="border-l-2 border-pizza-gold pl-4">
-                            <span class="block text-2xl font-serif font-bold text-pizza-burgundy">30+ Jahre</span>
-                            <span class="text-xs text-gray-500">Gastro-Erfahrung</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="relative rounded-2xl overflow-hidden shadow-lg gastro-card border border-pizza-gold/20 p-5 flex flex-col justify-between h-56 bg-cover bg-center" style="background-image: linear-gradient(to top, rgba(26,24,24,0.85), rgba(26,24,24,0.2)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80');">
-                        <span class="bg-pizza-gold text-charcoal text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider w-max">Pizzen</span>
-                        <div class="text-white">
-                            <h3 class="font-serif text-xl font-bold">Knusprig & Reichhaltig</h3>
-                            <p class="text-xs text-amber-100/80 mt-1">Über 40 Sorten von Klassikern bis Spezialitäten.</p>
-                        </div>
-                    </div>
-                    <div class="relative rounded-2xl overflow-hidden shadow-lg gastro-card border border-pizza-gold/20 p-5 flex flex-col justify-between h-56 bg-cover bg-center" style="background-image: linear-gradient(to top, rgba(26,24,24,0.85), rgba(26,24,24,0.2)), url('https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80');">
-                        <span class="bg-pizza-burgundy text-white text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider w-max">Pasta & Fisch</span>
-                        <div class="text-white">
-                            <h3 class="font-serif text-xl font-bold">Hausgemachte Saucen</h3>
-                            <p class="text-xs text-amber-100/80 mt-1">Spaghetti, Rigatoni, Tortellini & frischer Fisch.</p>
-                        </div>
+                    <p class="text-ink/80 leading-relaxed font-body">
+                        Treten Sie ein und erleben Sie ein Stück Italien mitten in Treuchtlingen. Wir freuen uns darauf, Sie als unsere Gäste begrüßen zu dürfen.
+                    </p>
+                    <div class="pt-4">
+                        <button onclick="openModal()" class="text-pizza-burgundy font-bold uppercase tracking-widest text-xs border-b border-pizza-burgundy pb-1 hover:text-pizza-burgundy-dark transition-colors">
+                            Reservieren Sie Ihren Tisch <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -283,208 +321,190 @@
         </div>
     </section>
 
-    <section id="info" class="bg-white border-b border-pizza-gold/20 py-10 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-amber-100">
-                
-                <div class="p-4 flex flex-col items-center">
-                    <div class="w-12 h-10 rounded-2xl bg-amber-50 flex items-center justify-center mb-3 text-pizza-burgundy border border-amber-200/60 shadow-sm">
-                        <i class="far fa-clock text-xl"></i>
-                    </div>
-                    <h3 class="font-serif font-bold text-xl text-gray-900">Öffnungszeiten</h3>
-                    <p class="text-sm text-gray-600 mt-1.5 font-medium">Täglich: 11:00 - 14:00 & 17:00 - 22:00 Uhr</p>
-                    <span class="mt-2 text-xs text-pizza-burgundy font-extrabold uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-200/60">Dienstag Ruhetag</span>
+    <section id="info" class="bg-paper-dark border-b border-pizza-gold/20 py-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-pizza-gold/20">
+                <div class="p-4 text-center">
+                    <i class="far fa-clock text-2xl text-pizza-gold mb-3"></i>
+                    <h3 class="font-serif font-bold text-lg text-ink uppercase tracking-wider mb-2">Zeiten</h3>
+                    <p class="text-sm text-ink/70 font-body">Täglich: 11:00 - 14:00 & 17:00 - 22:00</p>
+                    <p class="text-xs text-pizza-burgundy font-bold mt-1">Dienstag Ruhetag</p>
                 </div>
-
-                <div class="p-4 pt-8 md:pt-4 flex flex-col items-center">
-                    <div class="w-12 h-10 rounded-2xl bg-amber-50 flex items-center justify-center mb-3 text-pizza-burgundy border border-amber-200/60 shadow-sm">
-                        <i class="fas fa-phone-alt text-xl"></i>
-                    </div>
-                    <h3 class="font-serif font-bold text-xl text-gray-900">Telefonische Bestellung</h3>
-                    <a href="tel:091421568" class="text-pizza-burgundy font-extrabold text-2xl hover:text-pizza-burgundy-dark transition-colors mt-1">09142 / 1568</a>
-                    <p class="text-xs text-gray-500 mt-1">Oettinger Straße 8, 91757 Treuchtlingen</p>
+                <div class="p-4 pt-8 md:pt-4 text-center">
+                    <i class="fas fa-map-marker-alt text-2xl text-pizza-gold mb-3"></i>
+                    <h3 class="font-serif font-bold text-lg text-ink uppercase tracking-wider mb-2">Ort</h3>
+                    <p class="text-sm text-ink/70 font-body">Oettinger Straße 8</p>
+                    <p class="text-sm text-ink/70 font-body">91757 Treuchtlingen</p>
                 </div>
-
-                <div class="p-4 pt-8 md:pt-4 flex flex-col items-center">
-                    <div class="w-12 h-10 rounded-2xl bg-amber-50 flex items-center justify-center mb-3 text-pizza-burgundy border border-amber-200/60 shadow-sm">
-                        <i class="fas fa-wallet text-xl"></i>
-                    </div>
-                    <h3 class="font-serif font-bold text-xl text-gray-900">Zahlungsart</h3>
-                    <p class="text-pizza-burgundy font-extrabold text-base mt-1.5">Keine Kartenzahlung möglich!</p>
+                <div class="p-4 pt-8 md:pt-4 text-center">
+                    <i class="fas fa-phone-alt text-2xl text-pizza-gold mb-3"></i>
+                    <h3 class="font-serif font-bold text-lg text-ink uppercase tracking-wider mb-2">Kontakt</h3>
+                    <a href="tel:091421568" class="text-pizza-burgundy font-bold text-xl hover:underline font-serif">09142 / 1568</a>
+                    <p class="text-xs text-ink/50 mt-1 uppercase tracking-wider">Nur Barzahlung</p>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <main id="menu" class="flex-grow py-14 bg-cream relative">
+    <main id="menu" class="flex-grow py-16 bg-paper relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="text-center mb-10">
-                <span class="text-xs font-extrabold uppercase tracking-[0.25em] text-pizza-burgundy bg-amber-100/60 px-3 py-1 rounded-md border border-amber-200/60">Il Nostro Menu</span>
-                <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-gray-900 mt-2 mb-3">Unsere Speisekarte</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-pizza-gold-light via-pizza-gold to-pizza-gold-dark mx-auto rounded-full mb-4"></div>
-                <p class="text-sm sm:text-base text-gray-600 max-w-xl mx-auto leading-relaxed">
-                    Wählen Sie aus über 160 Spezialitäten. Tippen Sie auf ein Gericht, um das Beispielfoto auszuklappen.
+            <div class="text-center mb-12">
+                <div class="ornament-divider">
+                    <i class="fas fa-leaf text-pizza-gold text-sm"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-ink mb-4">Speisekarte</h2>
+                <p class="text-sm text-ink/70 font-body italic max-w-xl mx-auto">
+                    Klicken Sie bei einem Gericht auf "Foto ansehen", um ein Beispielbild der Spezialität aufzurufen.
                 </p>
             </div>
 
-            <!-- Search & Quick Filter Controls -->
-            <div class="gastro-card p-4 sm:p-6 rounded-3xl border border-pizza-gold/25 mb-8 space-y-4">
-                <div class="relative">
-                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+            <!-- Search & Filter Controls (Classic Traditional Look) -->
+            <div class="bg-white p-5 rounded-sm border border-pizza-gold/30 mb-10 shadow-sm">
+                <div class="relative border-b border-pizza-gold/30 mb-4 pb-2">
+                    <i class="fas fa-search absolute left-2 top-1/2 -translate-y-1/2 text-ink/40"></i>
                     <input type="text" id="menu-search" oninput="filterMenu()" 
-                           placeholder="Suchen nach Nummer oder Begriff (z.B. 110, Diavolo, Lachs)..." 
-                           class="w-full pl-12 pr-10 h-[52px] bg-white border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none text-base transition-all shadow-inner">
-                    <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-2">
-                        <i class="fas fa-times-circle text-xl"></i>
+                           placeholder="Suche nach Nummer oder Gericht..." 
+                           class="w-full pl-8 pr-10 py-2 bg-transparent outline-none text-ink font-body italic placeholder-ink/40">
+                    <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-ink/40 hover:text-ink">
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
 
-                <!-- Filter Pills -->
-                <div class="flex overflow-x-auto no-scrollbar items-center gap-2 text-xs sm:text-sm font-semibold pb-1 pt-1 px-1 sm:flex-wrap">
-                    <span class="text-gray-500 mr-1 text-xs shrink-0">Filter:</span>
-                    <button onclick="toggleFilter('all')" id="filter-btn-all" class="filter-pill shrink-0 bg-pizza-burgundy text-white px-4 py-2 rounded-full transition-all shadow-md font-bold">Alle Gerichte</button>
-                    <button onclick="toggleFilter('bestseller')" id="filter-btn-bestseller" class="filter-pill shrink-0 bg-white border border-gray-200 text-gray-700 hover:bg-amber-50 px-3.5 py-2 rounded-full transition-all flex items-center gap-1.5 shadow-sm"><i class="fas fa-star text-pizza-gold"></i> Bestseller</button>
-                    <button onclick="toggleFilter('veg')" id="filter-btn-veg" class="filter-pill shrink-0 bg-white border border-gray-200 text-gray-700 hover:bg-green-50 px-3.5 py-2 rounded-full transition-all flex items-center gap-1.5 shadow-sm"><i class="fas fa-leaf text-pizza-green"></i> Vegetarisch</button>
-                    <button onclick="toggleFilter('spicy')" id="filter-btn-spicy" class="filter-pill shrink-0 bg-white border border-gray-200 text-gray-700 hover:bg-red-50 px-3.5 py-2 rounded-full transition-all flex items-center gap-1.5 shadow-sm"><i class="fas fa-pepper-hot text-red-600"></i> Scharf</button>
+                <div class="flex overflow-x-auto no-scrollbar items-center gap-4 text-xs font-sans font-semibold uppercase tracking-wider sm:flex-wrap">
+                    <button onclick="toggleFilter('all')" id="filter-btn-all" class="filter-pill shrink-0 text-pizza-burgundy border-b-2 border-pizza-burgundy pb-1 transition-all">Alle</button>
+                    <button onclick="toggleFilter('bestseller')" id="filter-btn-bestseller" class="filter-pill shrink-0 text-ink/60 hover:text-ink pb-1 transition-all border-b-2 border-transparent"><i class="fas fa-star text-pizza-gold mr-1"></i> Bestseller</button>
+                    <button onclick="toggleFilter('veg')" id="filter-btn-veg" class="filter-pill shrink-0 text-ink/60 hover:text-ink pb-1 transition-all border-b-2 border-transparent"><i class="fas fa-leaf text-pizza-green mr-1"></i> Vegetarisch</button>
+                    <button onclick="toggleFilter('spicy')" id="filter-btn-spicy" class="filter-pill shrink-0 text-ink/60 hover:text-ink pb-1 transition-all border-b-2 border-transparent"><i class="fas fa-pepper-hot text-pizza-burgundy mr-1"></i> Scharf</button>
                     <div class="scroll-px-fix"></div>
                 </div>
             </div>
 
-            <!-- Sticky Category Navigation Tabs (KORRIGIERT: top-16 sm:top-[108px] verhindert das Verdecken durch die Navigationsleiste) -->
-            <div class="sticky top-16 sm:top-[108px] z-40 bg-white/95 backdrop-blur-md py-3.5 px-3 sm:px-5 rounded-2xl shadow-md border border-pizza-gold/25 mb-10 overflow-x-auto no-scrollbar flex items-center gap-2" id="category-tabs-container">
-                <button onclick="scrollToCat('Antipasti - Vorspeisen')" data-target="cat-AntipastiVorspeisen" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-pizza-burgundy text-white shadow-sm transition-colors">Vorspeisen</button>
-                <button onclick="scrollToCat('Minestre - Suppen')" data-target="cat-MinestreSuppen" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Suppen</button>
-                <button onclick="scrollToCat('Insalata - Salate')" data-target="cat-InsalataSalate" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Salate</button>
-                <button onclick="scrollToCat('Spaghetti')" data-target="cat-Spaghetti" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Pasta 🍝</button>
-                <button onclick="scrollToCat('Risotti - Reisgerichte')" data-target="cat-RisottiReisgerichte" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Risotto</button>
-                <button onclick="scrollToCat('Tris di Pasta & Al Forno')" data-target="cat-TrisdiPastaAlForno" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Überbackenes</button>
-                <button onclick="scrollToCat('Pizza')" data-target="cat-Pizza" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Pizzen 🍕</button>
-                <button onclick="scrollToCat('Specialita di Pesce - Fischspezialitäten')" data-target="cat-SpecialitadiPesceFischspezialitten" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Fisch 🐟</button>
-                <button onclick="scrollToCat('Getränke - Alkoholfrei')" data-target="cat-GetrnkeAlkoholfrei" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Getränke 🍷</button>
+            <!-- Sticky Category Navigation Tabs -->
+            <div class="sticky top-16 sm:top-[96px] z-40 bg-paper/95 backdrop-blur-md py-4 border-b border-pizza-gold/30 mb-12 overflow-x-auto no-scrollbar flex items-center gap-6" id="category-tabs-container">
+                <button onclick="scrollToCat('Antipasti - Vorspeisen')" data-target="cat-AntipastiVorspeisen" class="cat-tab shrink-0 text-sm font-serif font-bold text-pizza-burgundy border-b-2 border-pizza-burgundy pb-1 transition-colors uppercase tracking-widest whitespace-nowrap">Vorspeisen</button>
+                <button onclick="scrollToCat('Minestre - Suppen')" data-target="cat-MinestreSuppen" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Suppen</button>
+                <button onclick="scrollToCat('Insalata - Salate')" data-target="cat-InsalataSalate" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Salate</button>
+                <button onclick="scrollToCat('Spaghetti')" data-target="cat-Spaghetti" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Pasta</button>
+                <button onclick="scrollToCat('Risotti - Reisgerichte')" data-target="cat-RisottiReisgerichte" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Risotto</button>
+                <button onclick="scrollToCat('Tris di Pasta & Al Forno')" data-target="cat-TrisdiPastaAlForno" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Überbacken</button>
+                <button onclick="scrollToCat('Pizza')" data-target="cat-Pizza" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Pizza</button>
+                <button onclick="scrollToCat('Specialita di Pesce - Fischspezialitäten')" data-target="cat-SpecialitadiPesceFischspezialitten" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Fisch</button>
+                <button onclick="scrollToCat('Getränke - Alkoholfrei')" data-target="cat-GetrnkeAlkoholfrei" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Getränke</button>
                 <div class="scroll-px-fix"></div>
             </div>
 
             <!-- Menu List Container -->
-            <div id="menu-container" class="space-y-10">
-                <div class="text-center py-16 gastro-card rounded-3xl border border-pizza-gold/20">
-                    <i class="fas fa-spinner fa-spin text-4xl text-pizza-burgundy"></i>
-                    <p class="mt-4 text-gray-700 font-serif font-bold">Speisekarte wird geladen...</p>
-                </div>
+            <div id="menu-container" class="space-y-16">
+                <!-- Dynamic Content via JS -->
             </div>
 
-            <!-- No Search Results Message -->
-            <div id="no-results" class="hidden text-center py-14 gastro-card rounded-3xl border border-pizza-gold/20">
-                <i class="fas fa-search text-4xl text-pizza-gold mb-3"></i>
-                <h3 class="text-xl font-serif font-bold text-gray-900">Kein Gericht gefunden</h3>
-                <p class="text-sm text-gray-600 mt-1">Versuchen Sie es mit einer anderen Nummer oder einem anderen Suchbegriff.</p>
-                <button onclick="clearSearch()" class="mt-5 text-xs uppercase tracking-wider bg-pizza-burgundy text-white px-5 py-2.5 rounded-xl font-bold shadow-md hover:bg-pizza-burgundy-dark transition-colors">Suche zurücksetzen</button>
+            <div id="no-results" class="hidden text-center py-16">
+                <i class="fas fa-search text-3xl text-pizza-gold/50 mb-4"></i>
+                <h3 class="text-xl font-serif font-bold text-ink">Kein Gericht gefunden</h3>
+                <button onclick="clearSearch()" class="mt-4 text-xs font-bold uppercase tracking-widest text-pizza-burgundy border-b border-pizza-burgundy pb-1">Suche zurücksetzen</button>
             </div>
 
         </div>
     </main>
 
-    <div id="order-sheet-bar" class="fixed bottom-0 left-0 right-0 z-40 bg-charcoal text-white p-3.5 shadow-2xl border-t-2 border-pizza-gold hidden transition-all safe-area-pb">
+    <div id="order-sheet-bar" class="fixed bottom-0 left-0 right-0 z-40 bg-ink text-paper p-3 shadow-[0_-10px_30px_rgba(0,0,0,0.15)] border-t-2 border-pizza-gold hidden transition-all safe-area-pb">
         <div class="max-w-4xl mx-auto flex items-center justify-between gap-4 px-2">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-pizza-gold to-pizza-gold-dark text-charcoal flex items-center justify-center font-bold text-base shrink-0 shadow-md">
+                <div class="w-10 h-10 rounded-sm bg-pizza-gold text-ink flex items-center justify-center font-bold text-sm shrink-0">
                     <i class="fas fa-clipboard-list"></i>
                 </div>
                 <div>
-                    <span id="cart-count" class="font-extrabold text-sm text-amber-200 block leading-tight">0 Gerichte gemerkt</span>
-                    <span class="text-xs text-gray-300 block leading-tight mt-0.5">Gesamt ca.: <strong id="cart-total" class="text-white font-bold">€ 0,00</strong></span>
+                    <span id="cart-count" class="font-serif font-bold text-sm block">0 Gerichte</span>
+                    <span class="text-xs text-paper/70 font-sans block">Ca. <strong id="cart-total" class="text-pizza-gold">€ 0,00</strong></span>
                 </div>
             </div>
-            <button onclick="openOrderModal()" class="bg-gradient-to-r from-pizza-gold to-pizza-gold-light hover:from-amber-400 hover:to-pizza-gold text-charcoal px-5 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm transition-all shadow-md flex items-center gap-2">
-                <i class="fas fa-phone-alt"></i> <span>Bestellzettel anzeigen</span>
+            <button onclick="openOrderModal()" class="bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white px-5 py-2.5 rounded-sm font-bold uppercase tracking-widest text-[10px] sm:text-xs transition-colors flex items-center gap-2">
+                <i class="fas fa-phone-alt"></i> <span class="hidden sm:inline">Bestellzettel</span><span class="sm:hidden">Ansehen</span>
             </button>
         </div>
     </div>
 
-    <!-- Toast Container for "Added to list" -->
+    <!-- Toast Container -->
     <div id="toast-container" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none flex flex-col items-center gap-2"></div>
 
-    <div id="order-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
-        <div class="modal-content bg-white rounded-3xl shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30 gastro-card">
-            <div class="sticky top-0 z-20 bg-charcoal text-white px-6 py-5 flex justify-between items-center shadow-md border-b border-pizza-gold/30">
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+        <div class="modal-content bg-paper rounded-sm shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
+            <div class="sticky top-0 z-20 bg-pizza-burgundy text-paper px-6 py-5 flex justify-between items-center shadow-md">
                 <div>
-                    <h3 class="text-xl font-serif font-bold text-pizza-gold">Ihr Bestellzettel für Anruf</h3>
-                    <p class="text-xs text-gray-300 mt-0.5">Pizzeria La Piccola: 09142 / 1568</p>
+                    <h3 class="text-xl font-serif font-bold text-pizza-gold-light">Ihr Bestellzettel</h3>
+                    <p class="text-[11px] font-sans tracking-wide mt-0.5">La Piccola: 09142 / 1568</p>
                 </div>
-                <button onclick="closeOrderModal()" class="text-gray-400 hover:text-white p-2 shrink-0 bg-white/10 rounded-full">
-                    <i class="fas fa-times text-lg"></i>
+                <button onclick="closeOrderModal()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
             
-            <div class="p-6 bg-white">
-                <p class="text-xs text-gray-700 mb-4 bg-amber-50/80 p-3.5 rounded-2xl border border-amber-200/80 leading-relaxed">
-                    <i class="fas fa-info-circle text-pizza-burgundy mr-1"></i>
-                    Lesen Sie diese Nummern einfach am Telefon vor, um Ihre Bestellung zügig durchzugeben.
+            <div class="p-6">
+                <p class="text-xs font-sans text-ink/70 mb-6 italic text-center">
+                    Geben Sie diese Nummern telefonisch durch, um schnell zu bestellen.
                 </p>
                 
-                <div id="cart-items-list" class="divide-y divide-gray-100 mb-4">
+                <div id="cart-items-list" class="divide-y divide-pizza-gold/20 mb-4 font-serif">
                     <!-- Dynamic Cart items -->
                 </div>
                 
-                <div class="flex justify-between items-center py-4 border-t border-gray-200 font-extrabold text-lg text-gray-900">
-                    <span>Gesamtsumme (ca.):</span>
+                <div class="flex justify-between items-center py-4 border-t-2 border-pizza-gold/30 font-bold text-lg text-ink font-serif mt-4">
+                    <span>Gesamtsumme:</span>
                     <span id="cart-modal-total" class="text-pizza-burgundy">€ 0,00</span>
                 </div>
                 
-                <div class="mt-4 border-t border-gray-100 pt-5">
-                    <a href="tel:091421568" class="w-full bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white h-[52px] rounded-2xl font-bold text-center text-base flex items-center justify-center gap-2.5 shadow-lg transition-all">
-                        <i class="fas fa-phone-alt text-pizza-gold"></i> ANRUFEN (09142 / 1568)
+                <div class="mt-6 pt-4">
+                    <a href="tel:091421568" class="w-full bg-ink hover:bg-black text-pizza-gold border border-pizza-gold py-3.5 rounded-sm font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition-colors">
+                        <i class="fas fa-phone-alt"></i> Jetzt anrufen
                     </a>
-                    <p class="text-[11px] text-center text-gray-500 mt-3 font-semibold">Nur Barzahlung bei Abholung möglich.</p>
+                    <p class="text-[10px] text-center font-sans text-ink/50 mt-3 uppercase tracking-wider">Nur Barzahlung bei Abholung</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="reservation-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
-        <div class="modal-content bg-white rounded-3xl shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30 gastro-card">
-            
-            <!-- Header -->
-            <div class="sticky top-0 z-20 bg-pizza-burgundy text-white px-6 py-5 flex justify-between items-center shadow-md">
+    <div id="reservation-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+        <div class="modal-content bg-paper rounded-sm shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
+            <div class="sticky top-0 z-20 bg-pizza-burgundy text-paper px-6 py-5 flex justify-between items-center shadow-md">
                 <div>
-                    <h3 class="text-2xl font-serif font-extrabold">Tisch reservieren</h3>
-                    <p class="text-xs text-amber-100/80 mt-0.5">Pizzeria La Piccola Treuchtlingen</p>
+                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-pizza-gold-light">Tisch reservieren</h3>
+                    <p class="text-[11px] font-sans tracking-wide mt-0.5 uppercase">Pizzeria La Piccola</p>
                 </div>
-                <button onclick="closeModal()" class="text-white hover:text-amber-200 transition-colors p-2 shrink-0 bg-white/10 rounded-full">
-                    <i class="fas fa-times text-lg"></i>
+                <button onclick="closeModal()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
             
-            <!-- Form Body -->
-            <div class="p-6 bg-white">
-                <form id="reservation-form" onsubmit="submitReservation(event)" class="space-y-5">
+            <div class="p-6">
+                <form id="reservation-form" onsubmit="submitReservation(event)" class="space-y-5 font-sans">
                     
                     <div>
-                        <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Ihr Name *</label>
-                        <input type="text" name="name" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="Vor- und Nachname">
+                        <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Ihr Name *</label>
+                        <input type="text" name="name" required class="classic-input w-full px-4 h-[46px] text-sm" placeholder="Vor- und Nachname">
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
                         <div class="min-w-0">
-                            <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Telefonnummer *</label>
-                            <input type="tel" name="phone" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="Für Rückfragen">
+                            <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Telefonnummer *</label>
+                            <input type="tel" name="phone" required class="classic-input w-full px-4 h-[46px] text-sm" placeholder="Für Rückfragen">
                         </div>
                         <div class="min-w-0">
-                            <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">E-Mail (Optional)</label>
-                            <input type="email" name="email" class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50" placeholder="mail@beispiel.de">
+                            <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">E-Mail (Optional)</label>
+                            <input type="email" name="email" class="classic-input w-full px-4 h-[46px] text-sm" placeholder="mail@beispiel.de">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-3">
                         <div class="min-w-0">
-                            <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Datum *</label>
-                            <input type="date" name="date" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50">
+                            <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Datum *</label>
+                            <input type="date" name="date" required class="classic-input w-full px-4 h-[46px] text-sm block appearance-none">
                         </div>
                         <div class="min-w-0">
-                            <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Uhrzeit *</label>
-                            <select name="time" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 appearance-none">
-                                <option value="">Wählen...</option>
+                            <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Uhrzeit *</label>
+                            <select name="time" required class="classic-input w-full px-4 h-[46px] text-sm appearance-none bg-transparent">
+                                <option value="" disabled selected>Wählen...</option>
                                 <optgroup label="Mittags (11:00 - 14:00)">
                                     <option value="11:30">11:30 Uhr</option>
                                     <option value="12:00">12:00 Uhr</option>
@@ -503,8 +523,8 @@
                             </select>
                         </div>
                         <div class="min-w-0">
-                            <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Personen *</label>
-                            <select name="guests" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 appearance-none">
+                            <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Personen *</label>
+                            <select name="guests" required class="classic-input w-full px-4 h-[46px] text-sm appearance-none bg-transparent">
                                 <option value="1 Person">1 Person</option>
                                 <option value="2 Personen" selected>2 Personen</option>
                                 <option value="3 Personen">3 Personen</option>
@@ -517,16 +537,16 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Anmerkungen</label>
-                        <textarea name="notes" rows="2" class="w-full px-4 py-3 min-h-[80px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50 resize-none" placeholder="Allergien, Hochstuhl etc."></textarea>
+                        <label class="block text-[11px] font-bold text-ink uppercase tracking-widest mb-1.5">Anmerkungen</label>
+                        <textarea name="notes" rows="2" class="classic-input w-full px-4 py-3 min-h-[80px] text-sm resize-none" placeholder="Allergien, Kinderstuhl etc."></textarea>
                     </div>
 
-                    <div id="form-status" class="hidden p-3 rounded-xl text-sm text-center mt-2"></div>
+                    <div id="form-status" class="hidden p-3 border border-pizza-gold text-sm text-center mt-2 font-serif italic text-pizza-burgundy"></div>
 
-                    <div class="pt-5 mt-2 border-t border-gray-100 flex justify-end gap-3 pb-2">
-                        <button type="button" onclick="closeModal()" class="px-5 h-[50px] text-gray-600 hover:bg-gray-100 rounded-xl font-semibold transition-colors text-sm">Abbrechen</button>
-                        <button type="submit" id="submit-res-btn" class="bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white px-6 h-[50px] rounded-xl font-bold shadow-md transition-colors text-sm flex items-center justify-center gap-2">
-                            <i class="far fa-paper-plane"></i> <span>Jetzt anfragen</span>
+                    <div class="pt-6 border-t border-pizza-gold/20 flex justify-end gap-4">
+                        <button type="button" onclick="closeModal()" class="px-4 text-ink hover:text-pizza-burgundy font-bold text-xs uppercase tracking-widest transition-colors">Abbrechen</button>
+                        <button type="submit" id="submit-res-btn" class="bg-pizza-burgundy hover:bg-pizza-burgundy-dark text-white px-6 h-[46px] rounded-sm font-bold uppercase tracking-widest text-xs transition-colors flex items-center justify-center gap-2">
+                            Anfragen
                         </button>
                     </div>
                 </form>
@@ -535,134 +555,117 @@
     </div>
 
     <!-- Impressum Modal -->
-    <div id="impressum-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="modal-content bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30 gastro-card">
-            <div class="sticky top-0 z-20 bg-charcoal text-white px-6 py-4 flex justify-between items-center shadow-md">
-                <h3 class="text-xl font-serif font-bold text-pizza-gold">Impressum</h3>
-                <button onclick="closeImpressum()" class="text-gray-400 hover:text-white p-2 shrink-0 bg-white/10 rounded-full transition-colors">
+    <div id="impressum-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+        <div class="modal-content bg-paper rounded-sm shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
+            <div class="sticky top-0 z-20 bg-pizza-burgundy text-white px-6 py-4 flex justify-between items-center shadow-md">
+                <h3 class="text-xl font-serif font-bold text-pizza-gold-light">Impressum</h3>
+                <button onclick="closeImpressum()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
                     <i class="fas fa-times text-lg"></i>
                 </button>
             </div>
-            <div class="p-6 sm:p-8 bg-white text-gray-700 text-sm leading-relaxed space-y-6">
+            <div class="p-6 sm:p-8 font-sans text-ink/80 text-sm leading-relaxed space-y-6">
                 <div>
-                    <h4 class="font-bold text-gray-900 mb-2">Angaben gemäß § 5 TMG</h4>
-                    <p>Antonio Giugliano<br>
-                    Oettinger Str. 8<br>
-                    91757 Treuchtlingen</p>
+                    <h4 class="font-bold text-ink uppercase tracking-wider mb-2 text-xs">Angaben gemäß § 5 TMG</h4>
+                    <p>Antonio Giugliano<br>Oettinger Str. 8<br>91757 Treuchtlingen</p>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 mb-2">Kontakt</h4>
-                    <p>Telefon: <a href="tel:091421568" class="text-pizza-burgundy hover:underline">09142 / 1568</a><br>
-                    E-Mail: <a href="mailto:info@pizzeria-la-piccola.de" class="text-pizza-burgundy hover:underline">info@pizzeria-la-piccola.de</a></p>
+                    <h4 class="font-bold text-ink uppercase tracking-wider mb-2 text-xs">Kontakt</h4>
+                    <p>Telefon: <a href="tel:091421568" class="text-pizza-burgundy hover:underline">09142 / 1568</a><br>E-Mail: <a href="mailto:info@pizzeria-la-piccola.de" class="text-pizza-burgundy hover:underline">info@pizzeria-la-piccola.de</a></p>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 mb-2">Bildquellen</h4>
+                    <h4 class="font-bold text-ink uppercase tracking-wider mb-2 text-xs">Bildquellen</h4>
                     <p>Pixabay: Parmaschinken – Reinhard Thrainer, RitaE, Gnocchi – Michael Shivili, Calamari – Bart-ter-Haar, Free-Photos – vegetarische Pizza</p>
                 </div>
-                
-                <div class="border-t border-gray-100 pt-6">
-                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-4">Haftungsausschluss (Disclaimer)</h4>
-                    
-                    <h5 class="font-bold text-gray-900 mb-1">Haftung für Inhalte</h5>
+                <div class="border-t border-pizza-gold/20 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-burgundy mb-4">Haftungsausschluss (Disclaimer)</h4>
+                    <h5 class="font-bold text-ink mb-1 text-xs uppercase">Haftung für Inhalte</h5>
                     <p class="mb-4">Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
-                    
-                    <h5 class="font-bold text-gray-900 mb-1">Haftung für Links</h5>
+                    <h5 class="font-bold text-ink mb-1 text-xs uppercase">Haftung für Links</h5>
                     <p class="mb-4">Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
-                    
-                    <h5 class="font-bold text-gray-900 mb-1">Urheberrecht</h5>
+                    <h5 class="font-bold text-ink mb-1 text-xs uppercase">Urheberrecht</h5>
                     <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
                 </div>
-                
-                <div class="pt-6 border-t border-gray-100 flex justify-center">
-                    <button onclick="closeImpressum()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 h-[50px] rounded-xl font-semibold transition-colors flex items-center justify-center">Schließen</button>
+                <div class="pt-6 border-t border-pizza-gold/20 flex justify-center">
+                    <button onclick="closeImpressum()" class="border border-ink text-ink hover:bg-ink hover:text-paper px-8 h-[46px] rounded-sm font-bold uppercase tracking-widest text-xs transition-colors flex items-center justify-center">Schließen</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Datenschutz Modal -->
-    <div id="datenschutz-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="modal-content bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30 gastro-card">
-            <div class="sticky top-0 z-20 bg-charcoal text-white px-5 sm:px-6 py-4 flex justify-between items-center shadow-md">
-                <h3 class="text-xl font-serif font-bold text-pizza-gold">Datenschutzerklärung</h3>
-                <button onclick="closeDatenschutz()" class="text-gray-400 hover:text-white p-2 shrink-0 bg-white/10 rounded-full transition-colors">
+    <div id="datenschutz-modal" class="modal-overlay fixed inset-0 z-[110] flex items-center justify-center bg-ink/80 backdrop-blur-sm p-4">
+        <div class="modal-content bg-white rounded-sm shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-pizza-gold/30">
+            <div class="sticky top-0 z-20 bg-pizza-burgundy text-white px-5 sm:px-6 py-4 flex justify-between items-center shadow-md">
+                <h3 class="text-xl font-serif font-bold text-pizza-gold-light">Datenschutzerklärung</h3>
+                <button onclick="closeDatenschutz()" class="text-paper/60 hover:text-white p-2 shrink-0 transition-colors">
                     <i class="fas fa-times text-lg"></i>
                 </button>
             </div>
-            <div class="p-6 sm:p-8 bg-white text-gray-700 text-sm leading-relaxed space-y-6">
-                
-                <!-- Section 1 -->
+            <div class="p-6 sm:p-8 font-sans text-ink/80 text-sm leading-relaxed space-y-6 bg-paper">
                 <div>
-                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">1. Datenschutz auf einen Blick</h4>
-                    
-                    <h5 class="font-bold text-gray-900 mb-1">Allgemeine Hinweise</h5>
+                    <h4 class="text-lg font-serif font-bold text-pizza-burgundy mb-3">1. Datenschutz auf einen Blick</h4>
+                    <h5 class="font-bold text-ink mb-1 text-xs uppercase">Allgemeine Hinweise</h5>
                     <p class="mb-4">Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.</p>
-                    
-                    <h5 class="font-bold text-gray-900 mb-1">Datenerfassung auf dieser Website</h5>
+                    <h5 class="font-bold text-ink mb-1 text-xs uppercase">Datenerfassung auf dieser Website</h5>
                     <p class="mb-2"><strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong><br>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.</p>
                     <p class="mb-2"><strong>Wie erfassen wir Ihre Daten?</strong><br>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.</p>
                     <p class="mb-2"><strong>Wofür nutzen wir Ihre Daten?</strong><br>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.</p>
                     <p><strong>Welche Rechte haben Sie bezüglich Ihrer Daten?</strong><br>Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden.</p>
                 </div>
-
-                <!-- Section 2 -->
-                <div class="border-t border-gray-100 pt-6">
-                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">2. Hosting und CDN (Vercel / GitHub)</h4>
+                <div class="border-t border-pizza-gold/20 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-burgundy mb-3">2. Hosting und CDN (Vercel / GitHub)</h4>
                     <p class="mb-2">Diese Website wird bei externen Dienstleistern gehostet (Hoster), insbesondere über Vercel und GitHub Pages. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Kontaktdaten, Webseitenzugriffe und sonstige Daten handeln.</p>
                 </div>
-
-                <!-- Section 3 -->
-                <div class="border-t border-gray-100 pt-6">
-                    <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">3. Formularverarbeitung (Formspree)</h4>
+                <div class="border-t border-pizza-gold/20 pt-6">
+                    <h4 class="text-lg font-serif font-bold text-pizza-burgundy mb-3">3. Formularverarbeitung (Formspree)</h4>
                     <p>Zur Abwicklung von Reservierungsanfragen nutzen wir den Dienst Formspree Inc., USA. Ihre Formularangaben werden an Server von Formspree übertragen, um die Nachricht an uns per E-Mail zustellen zu können.</p>
                 </div>
-
-                <div class="pt-6 border-t border-gray-100 flex justify-center">
-                    <button onclick="closeDatenschutz()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 h-[50px] rounded-xl font-semibold transition-colors flex items-center justify-center">Schließen</button>
+                <div class="pt-6 border-t border-pizza-gold/20 flex justify-center">
+                    <button onclick="closeDatenschutz()" class="border border-ink text-ink hover:bg-ink hover:text-paper px-8 h-[46px] rounded-sm font-bold uppercase tracking-widest text-xs transition-colors flex items-center justify-center">Schließen</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-charcoal text-white pt-14 pb-24 md:pb-12 border-t-4 border-pizza-burgundy">
+    <footer class="bg-ink text-paper pt-16 pb-24 md:pb-12 border-t-4 border-pizza-burgundy font-body">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-10">
-                <div>
-                    <h4 class="text-2xl font-serif font-extrabold mb-4 text-pizza-gold">Pizzeria La Piccola</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Ihre italienische Familie Giugliano in Treuchtlingen. Genießen Sie authentische Pizza, Pasta und Fischspezialitäten.</p>
-                    <p class="text-[11px] text-pizza-gold-light font-medium bg-pizza-gold/10 inline-block px-3 py-1.5 rounded-lg border border-pizza-gold/20"><i class="fas fa-coins mr-1"></i> Hinweis: Nur Barzahlung möglich.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8 text-center md:text-left">
+                <div class="flex flex-col items-center md:items-start">
+                    <img src="https://pizzeria-la-piccola.de/wp-content/uploads/2020/04/logo-piccola-pizzaria.png" alt="La Piccola Logo" class="h-12 w-auto object-contain mb-4 grayscale brightness-200">
+                    <p class="text-paper/60 text-sm leading-relaxed mb-4">Ihre italienische Familie Giugliano in Treuchtlingen. Genießen Sie authentische Pizza und Pasta seit über 30 Jahren.</p>
+                    <p class="text-[10px] text-pizza-gold border border-pizza-gold/30 px-3 py-1.5 rounded-sm uppercase tracking-widest"><i class="fas fa-coins mr-1"></i> Nur Barzahlung möglich.</p>
                 </div>
                 <div>
-                    <h4 class="text-xs font-extrabold mb-5 uppercase tracking-widest text-gray-300">Kontakt & Anfahrt</h4>
-                    <ul class="space-y-3.5 text-sm text-gray-400">
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-map-marker-alt mt-1 text-pizza-gold"></i>
+                    <h4 class="text-xs font-sans font-bold mb-5 uppercase tracking-widest text-pizza-gold">Kontakt & Anfahrt</h4>
+                    <ul class="space-y-4 text-sm text-paper/70">
+                        <li class="flex items-start justify-center md:justify-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-pizza-burgundy"></i>
                             <span>Oettinger Straße 8<br>91757 Treuchtlingen</span>
                         </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fas fa-phone-alt text-pizza-gold"></i>
-                            <a href="tel:091421568" class="hover:text-white transition-colors font-bold text-pizza-gold-light">09142 / 1568</a>
+                        <li class="flex items-center justify-center md:justify-start gap-3">
+                            <i class="fas fa-phone-alt text-pizza-burgundy"></i>
+                            <a href="tel:091421568" class="hover:text-pizza-gold transition-colors font-serif text-lg">09142 / 1568</a>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-xs font-extrabold mb-5 uppercase tracking-widest text-gray-300">Öffnungszeiten</h4>
-                    <ul class="space-y-2.5 text-sm text-gray-400">
-                        <li class="flex justify-between border-b border-gray-800 pb-2"><span>Montag</span> <span>11-14 & 17-22 Uhr</span></li>
-                        <li class="flex justify-between border-b border-gray-800 pb-2 text-red-400 font-bold"><span>Dienstag</span> <span>Ruhetag</span></li>
-                        <li class="flex justify-between pt-0.5"><span>Mi - So</span> <span>11-14 & 17-22 Uhr</span></li>
+                    <h4 class="text-xs font-sans font-bold mb-5 uppercase tracking-widest text-pizza-gold">Öffnungszeiten</h4>
+                    <ul class="space-y-2 text-sm text-paper/70 max-w-[200px] mx-auto md:mx-0">
+                        <li class="flex justify-between border-b border-paper/10 pb-2"><span>Mo</span> <span>11-14 & 17-22</span></li>
+                        <li class="flex justify-between border-b border-paper/10 pb-2 text-pizza-burgundy font-bold"><span>Di</span> <span>Ruhetag</span></li>
+                        <li class="flex justify-between pt-1"><span>Mi - So</span> <span>11-14 & 17-22</span></li>
                     </ul>
                 </div>
             </div>
             
-            <hr class="border-gray-800 mb-6">
+            <hr class="border-paper/10 mb-6">
             
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-                <p>&copy; 2026 Pizzeria La Piccola Treuchtlingen. Alle Rechte vorbehalten.</p>
-                <div class="flex items-center gap-4 font-semibold">
-                    <button onclick="openImpressum()" class="hover:text-gray-300 transition-colors">Impressum</button>
-                    <span class="text-gray-700">|</span>
-                    <button onclick="openDatenschutz()" class="hover:text-gray-300 transition-colors">Datenschutz</button>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] font-sans text-paper/40 uppercase tracking-widest">
+                <p>&copy; 2026 Pizzeria La Piccola. Alle Rechte vorbehalten.</p>
+                <div class="flex items-center gap-4 font-bold">
+                    <button onclick="openImpressum()" class="hover:text-pizza-gold transition-colors">Impressum</button>
+                    <span class="text-paper/20">|</span>
+                    <button onclick="openDatenschutz()" class="hover:text-pizza-gold transition-colors">Datenschutz</button>
                 </div>
             </div>
         </div>
@@ -707,7 +710,7 @@
                 ]
             },
             "Insalata - Salate": {
-                desc: "Kleine Portionen kosten € 1,50 weniger. Zubereitet mit Essig & Öl (Joghurt-Dressing + € 1,50).",
+                desc: "Kleine Portionen kosten € 1,50 weniger. Zubereitet mit Essig & Öl.",
                 items: [
                     ["11", "Insalata Verde", "Grüner Salat", "5,00", "salad"],
                     ["12", "Insalata di Cetrioli", "Gurkensalat", "5,00", "salad"],
@@ -734,7 +737,7 @@
                     ["28", "Spaghetti Amatriciana", "Mit krossem Speck und Zwiebeln", "9,00", "pasta"],
                     ["29", "Spaghetti ai Funghi Misti", "Mit gemischten Edelpilzen", "11,00", "pasta"],
                     ["30", "Spaghetti Mare", "Mit feinen Meeresfrüchten", "11,50", "pasta"],
-                    ["31", "Spaghetti alle Vongole", "Mit Venusmuscheln in Tomaten-Weinsoße oder mit Öl und frischen Tomaten", "11,00", "pasta"],
+                    ["31", "Spaghetti alle Vongole", "Mit Venusmuscheln in Tomaten-Weinsoße oder Öl", "11,00", "pasta"],
                     ["32", "Spaghetti al Salmone", "Mit Lachs, Tomatensoße und Sahne", "12,00", "pasta"],
                     ["33", "Spaghetti ai Gamberetti", "Mit Shrimps und frischen Tomatenstückchen", "12,00", "pasta"],
                     ["34", "Spaghetti Scampi", "Mit gegrillten Scampi, Tomatensoße und Knoblauch", "13,50", "pasta"],
@@ -755,15 +758,15 @@
                     ["44", "Rigatoni Speciali", "Mit Speck, Kapern, Knoblauch in pikant-scharfer Tomatensoße", "9,50", "pasta"],
                     ["45", "Rigatoni Vulcano", "Mit Zwiebeln, Champignons, Oliven in scharfer Tomatensoße", "9,50", "pasta"],
                     ["46", "Rigatoni Broccoli al Forno", "Mit Broccoli, Knoblauch, Sahne und Käse überbacken", "10,00", "pasta"],
-                    ["47", "Rigatoni al Forno con Panna Bianca", "Mit Vorderschinken, Erbsen, Champignons, Sahnesoße und Käse überbacken", "10,50", "pasta"],
-                    ["48", "Rigatoni al Forno Speciali", "Mit Vorderschinken, Erbsen, Hackfleischsoße, Sahne und Käse überbacken", "10,00", "pasta"],
-                    ["49", "Rigatoni + Tortellini al Forno Speciali", "Mit Vorderschinken, Champignons, Erbsen, Hackfleischsoße, Sahne und Käse überbacken", "11,50", "pasta"]
+                    ["47", "Rigatoni al Forno con Panna Bianca", "Mit Vorderschinken, Erbsen, Champignons, Sahnesoße, Käse überbacken", "10,50", "pasta"],
+                    ["48", "Rigatoni al Forno Speciali", "Mit Vorderschinken, Erbsen, Hackfleischsoße, Sahne, Käse überbacken", "10,00", "pasta"],
+                    ["49", "Rigatoni + Tortellini al Forno Speciali", "Mit Vorderschinken, Champignons, Erbsen, Hackfleischsoße, Sahne überbacken", "11,50", "pasta"]
                 ]
             },
             "Penne": {
                 desc: "Kleine Portionen kosten € 1,00 weniger.",
                 items: [
-                    ["50", "Penne Vegetariane", "Mit Broccoli, Auberginen, Zucchini, Paprika, Pilzen, Knoblauch in Tomatensoße", "12,00", "pasta"],
+                    ["50", "Penne Vegetariane", "Mit Broccoli, Auberginen, Zucchini, Paprika, Pilzen, Knoblauch", "12,00", "pasta"],
                     ["51", "Penne alla Zingara", "Mit Speck, Zwiebeln, Knoblauch in scharfer Tomatensoße", "9,50", "pasta"],
                     ["52", "Penne Boscaiola", "Mit gemischten Pilzen in Tomatensoße", "10,50", "pasta"],
                     ["53", "Penne allo Scoglio", "Mit Pilzen, Venusmuscheln, Krabben und frischen Tomatenstücken", "14,00", "pasta"],
@@ -813,7 +816,7 @@
             "Tagliatelle": {
                 desc: "Kleine Portionen kosten € 1,00 weniger.",
                 items: [
-                    ["80", "Tagliatelle Vegetariane", "Mit Broccoli, Auberginen, Zucchini, Paprika, Pfifferlingen, Knoblauch und Tomatensoße", "12,00", "pasta"],
+                    ["80", "Tagliatelle Vegetariane", "Mit Broccoli, Auberginen, Zucchini, Paprika, Pfifferlingen, Knoblauch", "12,00", "pasta"],
                     ["81", "Tagliatelle Boscaiola", "Mit Vorderschinken, Broccoli, gemischten Pilzen und Sahnesoße", "11,50", "pasta"],
                     ["82", "Tagliatelle Spinaci e Gorgonzola", "Mit Spinat und Gorgonzolasoße", "11,00", "pasta"],
                     ["83", "Tagliatelle La Piccola", "Mit Vorderschinken, Erbsen, Champignons, Fleischsoße und Sahne", "11,50", "pasta"],
@@ -841,7 +844,7 @@
                     ["95", "Lasagne Bianche", "Mit feiner Sahnesoße und Käse überbacken", "10,50", "pasta"],
                     ["96", "Lasagne La Piccola", "Mit Vorderschinken, Erbsen, Eiern, Fleischsoße, Sahne und Käse überbacken", "11,00", "pasta"],
                     ["97", "Lasagne Vegetariana", "Mit Spinat, Lachs, Tomatensoße, Sahne und Käse überbacken", "12,50", "pasta"],
-                    ["98", "Cannelloni La Piccola", "Gerollte Nudeln mit Hackfleischfüllung, Schinken, Erbsen, Eiern und Käse überbacken", "11,50", "pasta"],
+                    ["98", "Cannelloni La Piccola", "Gerollte Nudeln mit Hackfleisch, Schinken, Erbsen, Eiern und Käse überbacken", "11,50", "pasta"],
                     ["99", "Cannelloni Primavera", "Mit Spinat, Hackfleischfüllung in Fleischsoße, Sahne und Käse überbacken", "11,50", "pasta"],
                     ["100", "Cannelloni della Casa", "Mit Hackfleischfüllung in Fleischsoße, Sahne und Käse überbacken", "10,00", "pasta"],
                     ["101", "Panzerotti al Prosciutto", "Mit Vorderschinken, Mozzarella, Tomatensoße und Sahne überbacken", "10,50", "pasta"],
@@ -851,7 +854,7 @@
                 ]
             },
             "Pizza": {
-                desc: "Normal ø 28 cm – Kleine Pizzen ø 22 cm kosten € 1,00 weniger. Extra Belag: Parmaschinken, Lachs oder Shrimps + € 2,50; jede andere Zutat + € 1,00.",
+                desc: "Normal ø 28 cm – Kleine Pizzen ø 22 cm kosten € 1,00 weniger.",
                 items: [
                     ["105", "Pizzabrot oder Panini", "Der pure, duftende Teiggenuss", "4,50", "pizza"],
                     ["106", "Knoblauch-Pizzabrot", "Pizzabrot mit feinem Knoblauch", "5,00", "pizza"],
@@ -1028,15 +1031,12 @@
                     const catIdClean = `cat-${category.replace(/[^a-zA-Z0-9]/g, '')}`;
 
                     let categoryHTML = `
-                        <div id="${catIdClean}" class="gastro-card rounded-3xl border border-pizza-gold/25 overflow-hidden shadow-sm">
-                            <div class="bg-gradient-to-r from-amber-100/70 via-amber-50 to-white px-6 sm:px-8 py-5 border-b border-pizza-gold/20 flex justify-between items-center">
-                                <div>
-                                    <h3 class="text-2xl sm:text-3xl font-serif font-extrabold text-gray-900 leading-tight">${category}</h3>
-                                    ${data.desc ? `<p class="text-gray-600 text-xs sm:text-sm mt-1 font-sans">${data.desc}</p>` : ''}
-                                </div>
-                                <div class="hidden sm:block text-pizza-gold font-serif text-sm font-bold italic tracking-wide">La Piccola</div>
+                        <div id="${catIdClean}" class="mb-14 scroll-mt-32">
+                            <div class="mb-8 border-b border-pizza-gold/30 pb-4 relative">
+                                <h3 class="text-3xl font-serif font-bold text-ink uppercase tracking-widest">${category}</h3>
+                                ${data.desc ? `<p class="text-ink/60 text-sm mt-2 font-body italic">${data.desc}</p>` : ''}
                             </div>
-                            <div class="divide-y divide-gray-100">
+                            <div class="space-y-6">
                     `;
 
                     filteredItems.forEach(item => {
@@ -1052,47 +1052,44 @@
                         const isSpicy = spicyItems.includes(id);
 
                         categoryHTML += `
-                            <div class="px-5 sm:px-7 py-4 hover:bg-amber-50/50 transition-colors">
-                                <div class="flex justify-between items-start gap-3 sm:gap-6">
-                                    
-                                    <div class="flex-1 cursor-pointer" onclick="toggleImg('${id}')">
-                                        <div class="flex items-center gap-2 flex-wrap mb-1">
-                                            <span class="text-pizza-burgundy font-extrabold text-xs sm:text-sm bg-amber-100/80 border border-amber-200/80 px-2 py-0.5 rounded-lg shadow-2xs">${id}.</span>
-                                            <h4 class="text-base sm:text-lg font-bold text-gray-900 leading-snug font-serif">${name}</h4>
-                                        </div>
-                                        
-                                        <div class="flex flex-wrap gap-1.5 mb-1.5">
-                                            ${isBestseller ? `<span class="bg-amber-100 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded-md border border-amber-300 flex items-center gap-1"><i class="fas fa-star text-pizza-gold text-[9px]"></i> Bestseller</span>` : ''}
-                                            ${isVeg ? `<span class="bg-emerald-100 text-emerald-900 text-[10px] font-bold px-2 py-0.5 rounded-md border border-emerald-300 flex items-center gap-1"><i class="fas fa-leaf text-[9px]"></i> Veggie</span>` : ''}
-                                            ${isSpicy ? `<span class="bg-red-100 text-red-900 text-[10px] font-bold px-2 py-0.5 rounded-md border border-red-300 flex items-center gap-1"><i class="fas fa-pepper-hot text-[9px]"></i> Scharf</span>` : ''}
-                                        </div>
-
-                                        ${desc ? `<p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-sans">${desc}</p>` : ''}
-                                        
-                                        <div class="mt-2.5 text-[11px] text-pizza-gold-dark hover:text-pizza-burgundy font-bold flex items-center gap-1.5 w-max transition-colors">
-                                            <i id="icon-${id}" class="fas fa-camera text-[10px] rotate-icon text-pizza-gold"></i>
-                                            <span class="underline decoration-pizza-gold/40">Foto ansehen</span>
-                                        </div>
+                            <div class="group relative">
+                                <div class="flex items-end justify-between gap-2 mb-1 w-full">
+                                    <div class="flex items-baseline gap-2 shrink-0">
+                                        <span class="text-pizza-burgundy font-serif font-bold text-sm min-w-[28px]">${id}.</span>
+                                        <h4 class="text-lg md:text-xl font-serif font-bold text-ink leading-none">${name}</h4>
                                     </div>
                                     
-                                    <div class="flex flex-col items-end gap-2.5 shrink-0">
-                                        <div class="text-base sm:text-xl font-serif font-extrabold text-pizza-burgundy whitespace-nowrap bg-amber-50/80 px-3 py-1 rounded-xl border border-amber-200/60 shadow-2xs">
+                                    <div class="menu-dots hidden sm:block"></div>
+                                    
+                                    <div class="flex items-center gap-4 shrink-0 pl-2">
+                                        <div class="text-lg font-serif font-bold text-ink">
                                             € ${price}
                                         </div>
                                         <button onclick="addToCart('${id}', '${name.replace(/'/g, "\\'")}', '${price}')" 
-                                                class="bg-white border-2 border-pizza-burgundy text-pizza-burgundy hover:bg-pizza-burgundy hover:text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5">
-                                            <i class="fas fa-plus text-[10px]"></i> <span>Hinzufügen</span>
+                                                class="border border-pizza-gold/50 text-pizza-burgundy hover:bg-pizza-burgundy hover:border-pizza-burgundy hover:text-white rounded-sm w-8 h-8 flex items-center justify-center transition-colors shadow-sm">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="pl-9 pr-24">
+                                    ${desc ? `<p class="text-sm text-ink/70 font-body leading-relaxed mb-1.5">${desc}</p>` : ''}
+                                    
+                                    <div class="flex flex-wrap gap-2 items-center mt-1.5">
+                                        ${isBestseller ? `<span class="text-pizza-gold text-[10px] font-bold uppercase tracking-widest"><i class="fas fa-star"></i> Bestseller</span>` : ''}
+                                        ${isVeg ? `<span class="text-pizza-green text-[10px] font-bold uppercase tracking-widest"><i class="fas fa-leaf"></i> Veg</span>` : ''}
+                                        ${isSpicy ? `<span class="text-pizza-burgundy text-[10px] font-bold uppercase tracking-widest"><i class="fas fa-pepper-hot"></i> Scharf</span>` : ''}
+                                        
+                                        <button onclick="toggleImg('${id}')" class="text-ink/40 hover:text-pizza-gold text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1 ml-2">
+                                            <i id="icon-${id}" class="fas fa-image rotate-icon"></i> Foto ansehen
                                         </button>
                                     </div>
                                 </div>
 
                                 <!-- Unfoldable Image Container -->
-                                <div id="img-${id}" class="menu-image-container">
-                                    <div class="relative overflow-hidden rounded-2xl shadow-md border border-amber-200/80 bg-gray-100 max-w-xl">
-                                        <img src="${imgUrl}" alt="${name}" loading="lazy" class="w-full h-44 sm:h-64 object-cover transform hover:scale-105 transition-transform duration-500">
-                                        <div class="absolute bottom-3 left-3 bg-black/75 backdrop-blur-md text-white text-xs px-3.5 py-1.5 rounded-full font-medium shadow-md border border-white/20">
-                                            Nr. ${id} - ${name}
-                                        </div>
+                                <div id="img-${id}" class="menu-image-container pl-9">
+                                    <div class="relative overflow-hidden rounded-sm shadow-sm border border-pizza-gold/20 bg-paper-dark max-w-sm">
+                                        <img src="${imgUrl}" alt="${name}" loading="lazy" class="w-full h-40 sm:h-56 object-cover transform hover:scale-105 transition-transform duration-700 sepia-[.2]">
                                     </div>
                                 </div>
                             </div>
@@ -1122,8 +1119,8 @@
         function showToast(message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = 'toast-animate bg-charcoal text-white px-4 py-2.5 rounded-full text-xs font-bold shadow-xl border border-pizza-gold/40 flex items-center gap-2';
-            toast.innerHTML = `<i class="fas fa-check-circle text-pizza-gold text-sm"></i> <span>${message}</span>`;
+            toast.className = 'toast-animate bg-ink text-paper px-5 py-3 rounded-sm text-xs font-bold shadow-2xl border border-pizza-gold/40 flex items-center gap-3 font-sans tracking-wide';
+            toast.innerHTML = `<i class="fas fa-check text-pizza-gold"></i> <span>${message}</span>`;
             container.appendChild(toast);
             
             setTimeout(() => {
@@ -1142,7 +1139,7 @@
             } else {
                 cart.push({ id, name, price: cleanPrice, qty: 1 });
             }
-            showToast(`Nr. ${id} (${name}) gemerkt`);
+            showToast(`Nr. ${id} hinzugefügt`);
             updateCartUI();
         }
 
@@ -1163,7 +1160,7 @@
 
             if (totalQty > 0) {
                 bar.classList.remove('hidden');
-                countEl.innerText = `${totalQty} Gericht${totalQty > 1 ? 'e' : ''} gemerkt`;
+                countEl.innerText = `${totalQty} Gericht${totalQty > 1 ? 'e' : ''}`;
                 totalEl.innerText = `€ ${totalPrice.toFixed(2).replace('.', ',')}`;
                 modalTotalEl.innerText = `€ ${totalPrice.toFixed(2).replace('.', ',')}`;
             } else {
@@ -1172,22 +1169,22 @@
 
             listEl.innerHTML = '';
             if (cart.length === 0) {
-                listEl.innerHTML = '<p class="text-sm text-gray-400 text-center py-6 bg-gray-50 rounded-2xl border border-dashed border-gray-200 font-medium">Noch keine Gerichte ausgewählt.</p>';
+                listEl.innerHTML = '<p class="text-sm text-ink/50 text-center py-6 border border-dashed border-pizza-gold/30">Noch keine Gerichte ausgewählt.</p>';
             } else {
                 cart.forEach(item => {
                     listEl.innerHTML += `
-                        <div class="py-3 flex justify-between items-center text-sm">
+                        <div class="py-4 flex justify-between items-start">
                             <div class="flex-1 pr-3">
-                                <div class="flex items-center gap-2">
-                                    <span class="font-bold text-xs bg-amber-100 text-pizza-burgundy px-2 py-0.5 rounded-md">Nr. ${item.id}</span>
-                                    <span class="font-serif font-bold text-gray-900">${item.name}</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span class="font-bold text-pizza-burgundy text-sm">Nr. ${item.id}</span>
+                                    <span class="font-bold text-ink">${item.name}</span>
                                 </div>
-                                <span class="text-[11px] text-gray-500 block mt-1">${item.qty}x je € ${item.price.toFixed(2).replace('.', ',')}</span>
+                                <span class="text-xs text-ink/60 block mt-1 font-sans">${item.qty}x je € ${item.price.toFixed(2).replace('.', ',')}</span>
                             </div>
-                            <div class="flex items-center gap-3 shrink-0">
-                                <span class="font-bold text-gray-900 bg-gray-50 px-2.5 py-1 rounded-xl border border-gray-200">€ ${(item.price * item.qty).toFixed(2).replace('.', ',')}</span>
-                                <button onclick="removeFromCart('${item.id}')" class="text-red-400 hover:text-white hover:bg-red-500 p-2 rounded-xl transition-colors border border-red-100 hover:border-red-500 shadow-2xs">
-                                    <i class="fas fa-trash-alt text-xs"></i>
+                            <div class="flex items-center gap-4 shrink-0 pt-1">
+                                <span class="font-bold text-ink">€ ${(item.price * item.qty).toFixed(2).replace('.', ',')}</span>
+                                <button onclick="removeFromCart('${item.id}')" class="text-ink/30 hover:text-pizza-burgundy transition-colors">
+                                    <i class="fas fa-times"></i>
                                 </button>
                             </div>
                         </div>
@@ -1217,12 +1214,12 @@
             currentFilter = filter;
             
             document.querySelectorAll('.filter-pill').forEach(btn => {
-                btn.className = 'filter-pill shrink-0 bg-white border border-gray-200 text-gray-700 hover:bg-amber-50 px-3.5 py-2 rounded-full transition-all shadow-sm';
+                btn.className = 'filter-pill shrink-0 text-ink/60 hover:text-ink pb-1 transition-all border-b-2 border-transparent';
             });
             
             const activeBtn = document.getElementById(`filter-btn-${filter}`);
             if (activeBtn) {
-                activeBtn.className = 'filter-pill shrink-0 bg-pizza-burgundy text-white px-4 py-2 rounded-full transition-all shadow-md font-bold';
+                activeBtn.className = 'filter-pill shrink-0 text-pizza-burgundy border-b-2 border-pizza-burgundy pb-1 transition-all';
             }
             
             renderMenu(document.getElementById('menu-search').value);
@@ -1252,13 +1249,13 @@
                 if (activeId) {
                     document.querySelectorAll('.cat-tab').forEach(btn => {
                         if (btn.getAttribute('data-target') === activeId) {
-                            btn.className = 'cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-pizza-burgundy text-white shadow-md transition-colors';
+                            btn.className = 'cat-tab shrink-0 text-sm font-serif font-bold text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap border-b-2 border-pizza-burgundy pb-1';
                             
                             const container = btn.parentElement;
                             const scrollLeft = btn.offsetLeft - (container.offsetWidth / 2) + (btn.offsetWidth / 2);
                             container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
                         } else {
-                            btn.className = 'cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60';
+                            btn.className = 'cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-ink transition-colors uppercase tracking-widest whitespace-nowrap border-b-2 border-transparent pb-1';
                         }
                     });
                 }
@@ -1306,7 +1303,6 @@
             const timeVal = hour * 60 + min;
 
             if (day === 2) {
-                statusPill.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-950 text-red-300 border border-red-500/30";
                 statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> DIENSTAG RUHETAG`;
                 return;
             }
@@ -1315,19 +1311,15 @@
             const isEvening = timeVal >= 1020 && timeVal < 1320;
 
             if (isLunch || isEvening) {
-                statusPill.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30";
-                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> JETZT GEÖFFNET`;
+                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> JETZT GEÖFFNET`;
             } else if (timeVal < 660) {
-                statusPill.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-500/30";
-                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> AB 11:00 WIEDER GEÖFFNET`;
+                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-pizza-gold"></span> AB 11:00 WIEDER GEÖFFNET`;
             } else if (timeVal >= 840 && timeVal < 1020) {
-                statusPill.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-500/30";
-                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> AB 17:00 WIEDER GEÖFFNET`;
+                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-pizza-gold"></span> AB 17:00 WIEDER GEÖFFNET`;
             } else {
                 const nextDay = (day + 1) % 7;
-                const nextOpenText = (nextDay === 2) ? "MI 11:00 WIEDER GEÖFFNET" : "AB 11:00 WIEDER GEÖFFNET";
-                statusPill.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-500/30";
-                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> ${nextOpenText}`;
+                const nextOpenText = (nextDay === 2) ? "MI 11:00 GEÖFFNET" : "AB 11:00 GEÖFFNET";
+                statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-pizza-gold"></span> ${nextOpenText}`;
             }
         }
 
@@ -1392,7 +1384,7 @@
                 <i class="fas fa-spinner fa-spin"></i>
                 <span>Wird übermittelt...</span>
             `;
-            statusDiv.className = 'hidden p-3 rounded-xl text-sm text-center mt-2';
+            statusDiv.className = 'hidden p-3 border border-pizza-gold text-sm text-center mt-2 font-serif italic text-pizza-burgundy';
 
             const formData = new FormData(form);
 
@@ -1404,13 +1396,13 @@
                 });
 
                 if (response.ok) {
-                    statusDiv.className = 'block p-4 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-medium text-center mt-2';
+                    statusDiv.className = 'block p-4 border border-pizza-gold/50 bg-paper-dark text-ink text-sm text-center mt-2 font-body';
                     statusDiv.innerHTML = `
                         <div class="flex items-center justify-center gap-2 mb-1">
-                            <i class="fas fa-check-circle text-emerald-600 text-lg"></i>
-                            <strong>Anfrage erfolgreich gesendet!</strong>
+                            <i class="fas fa-check text-pizza-gold"></i>
+                            <strong class="font-serif">Anfrage erfolgreich gesendet!</strong>
                         </div>
-                        <p class="text-xs text-emerald-700 mt-1">Wir prüfen Ihre Daten und bestätigen die Reservierung in Kürze.</p>
+                        <p class="text-xs text-ink/70 mt-1 italic">Wir prüfen Ihre Daten und bestätigen die Reservierung in Kürze.</p>
                     `;
                     form.reset();
                     submitBtn.style.display = 'none';
@@ -1426,9 +1418,9 @@
                     throw new Error('Formspree Fehler');
                 }
             } catch (error) {
-                statusDiv.className = 'block p-3 rounded-xl bg-red-50 text-red-800 border border-red-200 text-xs text-center mt-2';
+                statusDiv.className = 'block p-4 border border-pizza-burgundy/50 bg-paper-dark text-ink text-sm text-center mt-2 font-body';
                 statusDiv.innerHTML = `
-                    <strong>Übertragung fehlgeschlagen.</strong> Bitte rufen Sie uns direkt an unter: <br><a href="tel:091421568" class="underline font-bold mt-1 inline-block">09142 / 1568</a>
+                    <strong class="font-serif">Übertragung fehlgeschlagen.</strong><br>Bitte rufen Sie uns direkt an unter:<br><a href="tel:091421568" class="text-pizza-burgundy font-bold mt-1 inline-block">09142 / 1568</a>
                 `;
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnContent;
@@ -1436,15 +1428,6 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const localImg = new Image();
-            localImg.onload = () => {
-                const header = document.getElementById('hero-header');
-                if (header) {
-                    header.style.backgroundImage = "linear-gradient(to bottom, rgba(20, 16, 15, 0.75), rgba(20, 16, 15, 0.90)), url('unnamed.webp')";
-                }
-            };
-            localImg.src = 'unnamed.webp';
-
             checkOpeningStatus();
             renderMenu();
         });
