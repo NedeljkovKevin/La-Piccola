@@ -163,8 +163,8 @@
 
     <nav class="fixed w-full z-50 bg-paper/95 backdrop-blur-md border-b border-pizza-gold/30 shadow-sm transition-all duration-300">
         <!-- Top Micro Bar -->
-        <div class="bg-ink text-paper text-[11px] py-2 px-4 hidden sm:block border-b border-pizza-gold/20 font-sans tracking-wide">
-            <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="bg-ink text-paper text-[11px] h-8 px-4 hidden sm:flex items-center justify-between border-b border-pizza-gold/20 font-sans tracking-wide">
+            <div class="max-w-6xl mx-auto w-full flex justify-between items-center">
                 <div class="flex items-center gap-5">
                     <span><i class="fas fa-map-marker-alt text-pizza-gold mr-1.5"></i>Oettinger Straße 8, 91757 Treuchtlingen</span>
                     <span><i class="fas fa-coins text-pizza-gold mr-1.5"></i>Nur Barzahlung</span>
@@ -179,7 +179,7 @@
 
         <!-- Main Nav Header -->
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 sm:h-24">
+            <div class="flex justify-between items-center h-16 sm:h-20">
                 <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
                     <!-- Das Original-Logo des Kunden -->
                     <img src="https://pizzeria-la-piccola.de/wp-content/uploads/2020/04/logo-piccola-pizzaria.png" alt="La Piccola Logo" class="h-10 sm:h-14 w-auto object-contain">
@@ -381,7 +381,7 @@
             </div>
 
             <!-- Sticky Category Navigation Tabs -->
-            <div class="sticky top-16 sm:top-[96px] z-40 bg-paper/95 backdrop-blur-md py-4 border-b border-pizza-gold/30 mb-12 overflow-x-auto no-scrollbar flex items-center gap-6" id="category-tabs-container">
+            <div class="sticky top-16 sm:top-[112px] z-40 bg-paper/95 backdrop-blur-md py-3.5 border-b border-pizza-gold/30 mb-10 overflow-x-auto no-scrollbar flex items-center gap-6" id="category-tabs-container">
                 <button onclick="scrollToCat('Antipasti - Vorspeisen')" data-target="cat-AntipastiVorspeisen" class="cat-tab shrink-0 text-sm font-serif font-bold text-pizza-burgundy border-b-2 border-pizza-burgundy pb-1 transition-colors uppercase tracking-widest whitespace-nowrap">Vorspeisen</button>
                 <button onclick="scrollToCat('Minestre - Suppen')" data-target="cat-MinestreSuppen" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Suppen</button>
                 <button onclick="scrollToCat('Insalata - Salate')" data-target="cat-InsalataSalate" class="cat-tab shrink-0 text-sm font-serif font-bold text-ink/50 hover:text-pizza-burgundy transition-colors uppercase tracking-widest whitespace-nowrap">Salate</button>
@@ -1234,7 +1234,7 @@
 
             const observerOptions = {
                 root: null,
-                rootMargin: '-180px 0px -60% 0px',
+                rootMargin: window.innerWidth >= 640 ? '-180px 0px -60% 0px' : '-130px 0px -60% 0px',
                 threshold: 0
             };
 
@@ -1268,7 +1268,7 @@
             const elId = `cat-${catName.replace(/[^a-zA-Z0-9]/g, '')}`;
             const el = document.getElementById(elId);
             if (el) {
-                const headerOffset = 175; 
+                const headerOffset = window.innerWidth >= 640 ? 175 : 125; 
                 const elementPosition = el.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
           
