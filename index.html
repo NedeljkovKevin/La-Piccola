@@ -12,7 +12,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -95,21 +94,18 @@
 
         /* Perfect date input calendar icon alignment for desktop & iOS */
         input[type="date"] {
-            position: relative;
-            box-sizing: border-box;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 100% !important;
+            min-width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            margin: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
             background-color: #F9FAFB;
         }
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            opacity: 0.6;
-            filter: invert(0.2);
-        }
         
-        /* Subtle Italian Paper Texture Card Vibe */
         .gastro-card {
             background: linear-gradient(135deg, #FFFFFF 0%, #FAF8F5 100%);
             box-shadow: 0 4px 20px -2px rgba(122, 28, 28, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
@@ -356,8 +352,8 @@
                 </div>
             </div>
 
-            <!-- Sticky Category Navigation Tabs (PIZZA IST JETZT NACH ÜBERBACKENES EINSETZT) -->
-            <div class="sticky top-16 md:top-20 z-40 bg-white/95 backdrop-blur-md py-3.5 px-3 sm:px-5 rounded-2xl shadow-md border border-pizza-gold/25 mb-10 overflow-x-auto no-scrollbar flex items-center gap-2" id="category-tabs-container">
+            <!-- Sticky Category Navigation Tabs (KORRIGIERT: top-16 sm:top-[108px] verhindert das Verdecken durch die Navigationsleiste) -->
+            <div class="sticky top-16 sm:top-[108px] z-40 bg-white/95 backdrop-blur-md py-3.5 px-3 sm:px-5 rounded-2xl shadow-md border border-pizza-gold/25 mb-10 overflow-x-auto no-scrollbar flex items-center gap-2" id="category-tabs-container">
                 <button onclick="scrollToCat('Antipasti - Vorspeisen')" data-target="cat-AntipastiVorspeisen" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-pizza-burgundy text-white shadow-sm transition-colors">Vorspeisen</button>
                 <button onclick="scrollToCat('Minestre - Suppen')" data-target="cat-MinestreSuppen" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Suppen</button>
                 <button onclick="scrollToCat('Insalata - Salate')" data-target="cat-InsalataSalate" class="cat-tab shrink-0 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-amber-50/80 text-pizza-burgundy hover:bg-amber-100 transition-colors border border-amber-200/60">Salate</button>
@@ -483,7 +479,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-3">
                         <div class="min-w-0">
                             <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Datum *</label>
-                            <input type="date" name="date" required class="w-full pl-4 pr-10 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50">
+                            <input type="date" name="date" required class="w-full px-4 h-[50px] border border-gray-300 rounded-xl focus:ring-2 focus:ring-pizza-burgundy focus:border-pizza-burgundy outline-none transition-all text-base bg-gray-50/50">
                         </div>
                         <div class="min-w-0">
                             <label class="block text-xs font-extrabold text-gray-700 uppercase tracking-wider mb-1.5">Uhrzeit *</label>
@@ -595,6 +591,7 @@
             </div>
             <div class="p-6 sm:p-8 bg-white text-gray-700 text-sm leading-relaxed space-y-6">
                 
+                <!-- Section 1 -->
                 <div>
                     <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">1. Datenschutz auf einen Blick</h4>
                     
@@ -608,11 +605,13 @@
                     <p><strong>Welche Rechte haben Sie bezüglich Ihrer Daten?</strong><br>Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden.</p>
                 </div>
 
+                <!-- Section 2 -->
                 <div class="border-t border-gray-100 pt-6">
                     <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">2. Hosting und CDN (Vercel / GitHub)</h4>
                     <p class="mb-2">Diese Website wird bei externen Dienstleistern gehostet (Hoster), insbesondere über Vercel und GitHub Pages. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Kontaktdaten, Webseitenzugriffe und sonstige Daten handeln.</p>
                 </div>
 
+                <!-- Section 3 -->
                 <div class="border-t border-gray-100 pt-6">
                     <h4 class="text-lg font-serif font-bold text-pizza-gold mb-3">3. Formularverarbeitung (Formspree)</h4>
                     <p>Zur Abwicklung von Reservierungsanfragen nutzen wir den Dienst Formspree Inc., USA. Ihre Formularangaben werden an Server von Formspree übertragen, um die Nachricht an uns per E-Mail zustellen zu können.</p>
@@ -686,7 +685,6 @@
         const vegItems = ["5", "6", "7", "8", "10", "11", "12", "13", "14", "16", "20", "21", "23", "25", "36", "38", "50", "56", "57", "58", "61", "68", "72", "75", "78", "80", "82", "87", "95", "97", "102", "105", "106", "107", "109", "110", "114", "115", "116", "117", "134", "137"];
         const spicyItems = ["35", "44", "45", "51", "135", "139"];
 
-        // VOLLSTÄNDIGE SPEISEKARTE (Pizzen genau nach Überbackenes)
         const menuData = {
             "Antipasti - Vorspeisen": {
                 desc: "Alle Vorspeisen werden mit frischem Pizzabrot serviert.",
@@ -1239,7 +1237,7 @@
 
             const observerOptions = {
                 root: null,
-                rootMargin: '-130px 0px -65% 0px',
+                rootMargin: '-180px 0px -60% 0px',
                 threshold: 0
             };
 
@@ -1273,7 +1271,7 @@
             const elId = `cat-${catName.replace(/[^a-zA-Z0-9]/g, '')}`;
             const el = document.getElementById(elId);
             if (el) {
-                const headerOffset = 130; 
+                const headerOffset = 175; 
                 const elementPosition = el.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
           
@@ -1297,26 +1295,22 @@
             }
         }
 
-        // Korrigierte Echtzeit-Öffnungszeiten-Logik
         function checkOpeningStatus() {
             const statusPill = document.getElementById('live-status-pill');
             if (!statusPill) return;
 
             const now = new Date();
-            const day = now.getDay(); // 0 = Sun, 1 = Mon, 2 = Tue, ...
+            const day = now.getDay();
             const hour = now.getHours();
             const min = now.getMinutes();
             const timeVal = hour * 60 + min;
 
-            // Dienstag = Ruhetag (Tag 2)
             if (day === 2) {
                 statusPill.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-950 text-red-300 border border-red-500/30";
                 statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> DIENSTAG RUHETAG`;
                 return;
             }
 
-            // Mittagstisch: 11:00 (660m) - 14:00 (840m)
-            // Abendtisch: 17:00 (1020m) - 22:00 (1320m)
             const isLunch = timeVal >= 660 && timeVal < 840;
             const isEvening = timeVal >= 1020 && timeVal < 1320;
 
@@ -1337,7 +1331,6 @@
             }
         }
 
-        // Modal Controllers
         const reservationModal = document.getElementById('reservation-modal');
         const orderModal = document.getElementById('order-modal');
         const impressumModal = document.getElementById('impressum-modal');
@@ -1387,7 +1380,6 @@
             document.body.style.overflow = '';
         }
 
-        // Formspree AJAX Reservation Submission
         async function submitReservation(e) {
             e.preventDefault();
             const form = document.getElementById('reservation-form');
@@ -1443,7 +1435,6 @@
             }
         }
 
-        // On DOM Load
         window.addEventListener('DOMContentLoaded', () => {
             const localImg = new Image();
             localImg.onload = () => {
